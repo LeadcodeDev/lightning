@@ -1,3 +1,6 @@
 {
-  "extends": ["@nas-service"]
+  "extends": ["@nas-service"],
+  "rules": {
+    "@typescript-eslint/no-inferrable-types": "off"
+  }
 }
