@@ -1,9 +1,1 @@
-/*
- * Lightning
- *
- * (c) Parmantier Baptiste
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- */
+#!/usr/bin/env node/* * Index * * (c) Parmantier Baptiste * * For the full copyright and license information, please view the LICENSE * file that was distributed with this source code. * */import Lightning from './lightning'import Supervisor from './supervisor'import DevServer from './lightning/DevServer'export * from './types'export {  Lightning,  Supervisor,  DevServer}
