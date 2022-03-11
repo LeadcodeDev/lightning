@@ -1,5 +1,4 @@
 import { EventEmitter } from 'node:events'
-import { createLogger, Logger } from 'vite'
 import { build, BuildOptions } from 'esbuild'
 import { mkdtemp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -8,9 +7,8 @@ import { exec } from 'child_process'
 import DevServer from './DevServer'
 
 export default class Lightning extends EventEmitter {
-  public logger: Logger = createLogger()
   public tmp!: string
-  public devServer: DevServer = new DevServer(this.logger)
+  public devServer?: DevServer
 
   private async makeTemporaryWorkspace () {
     try {
@@ -20,13 +18,14 @@ export default class Lightning extends EventEmitter {
     }
   }
 
+  public createDevServer () {
+    this.devServer = new DevServer()
+    return this.devServer
+  }
+
   public async execFile (entryPoint: string, clearConsole: boolean = false, options?: BuildOptions) {
     await this.makeTemporaryWorkspace()
     const file = join(this.tmp, 'index.js')
-
-    if (clearConsole) {
-      this.logger.clearScreen('info')
-    }
 
     await build({
       ...options,
@@ -40,5 +39,9 @@ export default class Lightning extends EventEmitter {
     const { stdout, stderr } = await exec(`node ${file}`)
     stdout?.pipe(process.stdout)
     stderr?.pipe(process.stderr)
+  }
+
+  public async build (options: BuildOptions) {
+    return build(options)
   }
 }

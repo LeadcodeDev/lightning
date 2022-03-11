@@ -9,31 +9,16 @@ import Lightning from '../lightning'
     ? entryPoint.split(sep)
     : entryPoint.split('/')
 
-  const rootLocation = entry.splice(0, entry.length - 1).join(sep)
-  const entryFile = entry.at(-1)
-
-  if (!entryFile) {
+  if (!entry) {
     return
   }
 
   const lightningServer = new Lightning()
-  const server = await lightningServer.devServer.createServer({
-    configFile: false,
-    root: rootLocation,
-    server: { port: 4000 },
-    clearScreen: true,
-  })
-
+  const server = lightningServer.createDevServer()
   await server.watch({
-    entryPoint: entryFile,
-    ignoreFiles: ['vitest.config'],
-    ignoreFolders: ['build', 'tests'],
-    clearScreenWhenRestart: true
-  })
-
-  await server.listen(true)
-
-  server.on('update:file', (file) => {
-    lightningServer.logger.info('[Reload] ' + file)
+    root: entry.splice(0, entry.length - 1).join(sep),
+    entryPoint: 'index.ts',
+    clearScreenChange: true,
+    withDurationBuild: true
   })
 })()

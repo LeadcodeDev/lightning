@@ -1,26 +1,22 @@
-import { InlineConfig, ViteDevServer, createServer, Logger } from 'vite'
 import { LightningEvents, LightningWatcher } from '../types'
-import path, { join } from 'node:path'
+import { join } from 'node:path'
 import Supervisor from '../supervisor'
 import { build, BuildOptions } from 'esbuild'
 import { EventEmitter } from 'node:events'
 import { mkdtemp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { fetch } from 'fs-recursive'
+import Watcher from '../watcher'
+import Logger from '../logger'
+import { DateTime, Duration } from 'luxon'
 
-export default class DevServer extends EventEmitter{
-  public viteServer?: ViteDevServer
+export default class DevServer extends EventEmitter {
   private supervisor?: Supervisor
-  private root: string | undefined
-  public files: string[] = []
-  private tmp: string | undefined
-  private buildOptions: BuildOptions | undefined
-  private ignoreFiles: string[] = []
-  private ignoreFolders: string[] = []
-
-  constructor (private logger: Logger) {
-    super()
-  }
+  public watcher?: Watcher
+  public logger: Logger = new Logger()
+  public root?: string
+  public tmp?: string
+  public buildOptions?: BuildOptions
+  public watchOptions!: LightningWatcher
 
   private async makeTemporaryWorkspace () {
     try {
@@ -30,58 +26,34 @@ export default class DevServer extends EventEmitter{
     }
   }
 
-  public async createServer (options?: InlineConfig, buildOptions?: BuildOptions) {
-    this.root = options?.root
-    this.buildOptions = buildOptions
-    this.logger.clearScreen('info')
-    await this.makeTemporaryWorkspace()
-    this.viteServer = await createServer(options)
-
-    return this
-  }
-
-  public async listen (printUrls: boolean = false) {
-    await this.viteServer?.listen()
-    if (printUrls) {
-      this.viteServer?.printUrls()
-    }
-  }
-
   public async watch (options: LightningWatcher) {
-    this.ignoreFiles = options.ignoreFiles
-    this.ignoreFolders = options.ignoreFolders
+    this.watchOptions = options
 
-    this.files = await this.fetchFilesFromRoot()
-    this.viteServer?.watcher.add(this.files)
+    this.watcher = new Watcher(this.watchOptions.root)
 
-    this.viteServer?.watcher.on('ready', async () => await this.ready())
-    this.viteServer?.watcher.on('add', async (args) => await this.addFile(args))
-    this.viteServer?.watcher.on('unlink', async (args) => await this.removeFile(args))
-    this.viteServer?.watcher.on('change', async (args) => await this.changeFile(args))
-    this.viteServer?.watcher.on('error', () => console.log('ff'))
+    if (options.clearScreenChange) {
+      this.logger.clearScreen()
+    }
 
-    // const rootFolder = this.root?.includes(path.sep)
-    //   ? this.root.split(path.sep).at(-1)
-    //   : this.root!.split('/').at(-1)
+    await this.makeTemporaryWorkspace()
 
-    const location = join(this.tmp!, options.entryPoint.replace(/\.ts/g, '.js'))
-    this.supervisor = new Supervisor(location, '--commands')
-  }
+    this.watcher.monitor.on('ready', async () => await this.ready())
+    this.watcher.monitor.on('add', async (args) => await this.addFile(args))
+    this.watcher.monitor.on('unlink', async (args) => await this.removeFile(args))
+    this.watcher.monitor.on('change', async (args) => await this.changeFile(args))
+    this.watcher.monitor.on('error', (err: Error) => this.error(err))
 
-  private async fetchFilesFromRoot (): Promise<string[]> {
-    const files = await fetch(
-      this.root!,
-      ['ts'],
-      'utf-8',
-      ['node_modules', '.git', ...this.ignoreFolders]
-    )
+    if (this.watchOptions.withDurationBuild) {
+      this.on('process:duration', (time: Duration) => {
+        console.log(time.toMillis())
+      })
+    }
 
-    return Array.from(files).map(([, file]) => {
-      if (file.filename.endsWith('.d') || this.ignoreFiles.includes(file.filename)) {
-        return
-      }
-      return file.path
-    }).filter((path) => path) as string[]
+    if (!this.tmp) {
+      throw Error('Temporary folder not exist.')
+    }
+
+    this.supervisor = new Supervisor(this,'--commands')
   }
 
   private async ready () {
@@ -90,40 +62,44 @@ export default class DevServer extends EventEmitter{
   }
 
   private async addFile (filePath: string) {
-    this.files.push(filePath)
-    await this.track(true)
-
-    this.emit('add:file', filePath)
+    if (this.watcher?.state === 'READY') {
+      await this.track(true)
+      this.emit('add:file', filePath)
+    }
   }
 
   private async removeFile (filePath: string) {
-    const index = this.files.findIndex((location) => location === filePath)
-    this.files.splice(index, 1)
-    await this.track(true)
-
-    this.emit('remove:file', filePath)
+    if (this.watcher?.state === 'READY') {
+      await this.track(true)
+      this.emit('remove:file', filePath)
+    }
   }
 
   private async changeFile (filePath) {
-    await this.track(true)
+    if (this.watcher?.state === 'READY') {
+      await this.track(true)
+      this.emit('update:file', filePath)
+    }
+  }
 
-    this.emit('update:file', filePath)
+  protected error (error: Error) {
+    console.log('error', error.stack)
   }
 
   private async track (withClearConsole: boolean = false) {
-    await this.build()
-
-    if (withClearConsole) {
-      this.logger.clearScreen('info')
+    if (withClearConsole && this.watchOptions.clearScreenChange) {
+      this.logger.clearScreen()
     }
 
+    await this.build()
     await this.supervisor?.restart()
   }
 
   private async build () {
+    this.emit('start:build', DateTime.now())
     return build({
       ...this.buildOptions,
-      entryPoints: this.files,
+      entryPoints: this.watcher?.files,
       outdir: this.tmp,
       platform: 'node',
       format: 'cjs'

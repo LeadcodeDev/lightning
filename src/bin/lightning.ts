@@ -1,8 +1,13 @@
 (async () => {
-  const [,, ...args] = process.argv
+  const [,,, mode] = process.argv
 
-  if (args.includes('--watch')) {
-    await import('./lightning-dev-server')
+  const modes = {
+    '--watch': () => import('./lightning-dev-server'),
+    '--build': () => import('./lightning-build')
+  }
+
+  if (mode in modes) {
+    await modes[mode]()
     return
   }
 
