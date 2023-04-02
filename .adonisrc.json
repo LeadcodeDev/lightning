@@ -10,13 +10,14 @@
   "aliases": {
     "Domains": "domains",
     "App": "app",
+    "Apps": "apps",
     "Config": "config",
     "Database": "database",
     "Contracts": "contracts"
   },
   "preloads": [
     "./start/routes",
-    "./app/manager/routes",
+    "./apps/manager/routes",
     "./start/view",
     "./start/kernel"
   ],

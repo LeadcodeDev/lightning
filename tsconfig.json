@@ -18,6 +18,9 @@
       "App/*": [
         "./app/*"
       ],
+      "Apps/*": [
+        "./apps/*"
+      ],
       "Config/*": [
         "./config/*"
       ],
