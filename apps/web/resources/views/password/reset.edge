@@ -1,0 +1,16 @@
+<div>
+  <h1>Reset your password</h1>
+
+  {{ inspect(flashMessages) }}
+
+  @if (isValid)
+    <p>Enter your email below and we'll send you a password reset link</p>
+    <form method="POST" action="{{ route('password.store') }}">
+      <input type="hidden" name="token" value="{{ token }}">
+      <input type="password" name="password" placeholder="Enter your new password" />
+      <button type="submit">Reset password</button>
+    </form>
+  @else
+    <p>Your token is invalid or expired. <a href="{{ route('password.forgot') }}">Please try again</a>.</p>
+  @end
+</div>
