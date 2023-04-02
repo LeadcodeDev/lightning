@@ -1,8 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from "Domains/users/models/User";
 import {schema} from "@ioc:Adonis/Core/Validator";
 import {rules} from "@adonisjs/validator/build/src/Rules";
-import Hash from "@ioc:Adonis/Core/Hash";
 
 export default class AuthenticationController {
   public async showLogin ({ view }: HttpContextContract): Promise<string>{
@@ -17,22 +15,17 @@ export default class AuthenticationController {
       })
     })
 
-    const user = await User.query()
-      .where('email', email)
-      .firstOrFail()
-
-    if (!user.hasEmailVerified) {
-      session.flash('error', 'Your account is not active')
-      return response.redirect().back()
-    }
-
-    if (!(await Hash.verify(user.password, password))) {
+    try {
+      await auth.use('web').attempt(email, password)
+      response.redirect('/')
+    } catch {
       session.flash('error', 'Bad credentials')
       return response.redirect().back()
     }
+  }
 
-    await auth.use('web').login(user)
-
+  public async logout ({ response, auth }: HttpContextContract) {
+    await auth.logout()
     return response.redirect().back()
   }
 }

@@ -1,7 +1,11 @@
-<form method="POST" action="{{ route('user.store') }}">
-  <input type="text" name="username" placeholder="Username" />
-  <input type="email" name="email" placeholder="Email" />
-  <input type="password" name="password" placeholder="Mot de passe" />
-  <input type="password" name="password_confirmation" placeholder="Confirmation du mot de passe" />
-  <button type="submit">Créer mon compte</button>
-</form>
+@layout('web::layouts/authentication')
+
+@section('body')
+  @form.container({ method: 'POST', action: route('user.store') })
+    <input type="text" name="username" placeholder="Username" />
+    <input type="email" name="email" placeholder="Email" />
+    <input type="password" name="password" placeholder="Mot de passe" />
+    <input type="password" name="password_confirmation" placeholder="Confirmation du mot de passe" />
+    <button type="submit">Créer mon compte</button>
+  @end
+@end

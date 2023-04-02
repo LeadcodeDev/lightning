@@ -38,6 +38,11 @@ export default class User extends BaseModel {
   })
   public passwordResetTokens: HasMany<typeof Token>
 
+  @hasMany(() => Token, {
+    onQuery: query => query.where('type', 'VERIFY_EMAIL')
+  })
+  public verifyEmailTokens: HasMany<typeof Token>
+
   @beforeCreate()
   public static async generateUid (user: User): Promise<void> {
     user.id = randomUUID()

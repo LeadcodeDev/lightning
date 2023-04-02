@@ -30,6 +30,24 @@ export default class Token extends BaseModel {
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
+  public static async getUserToken (token: string, type: TokenType) {
+    const record = await Token.query()
+      .preload('user')
+      .where('token', token)
+      .where('type', type)
+      .where('expiresAt', '>', DateTime.now().toSQL())
+      .orderBy('createdAt', 'desc')
+      .first()
+
+    return record?.user
+  }
+
+  public static async expireTokens (user: User, relationName: 'passwordResetTokens' | 'verifyEmailTokens') {
+    await user.related(relationName).query().update({
+      expiresAt: DateTime.now()
+    })
+  }
+
   public static async generatePasswordResetToken (user: User | null) {
     const token: string = string.generateRandom(64)
 
@@ -40,6 +58,19 @@ export default class Token extends BaseModel {
     const record: Token = await user.related('tokens').create({
       type: 'PASSWORD_RESET',
       expiresAt: DateTime.now().plus({ hour: 1 }),
+      token
+    })
+
+    return record.token
+  }
+
+  public static async generateVerifyEmailToken (user: User) {
+    const token = string.generateRandom(64)
+
+    await Token.expireTokens(user, 'verifyEmailTokens')
+    const record = await user.related('tokens').create({
+      type: 'VERIFY_EMAIL',
+      expiresAt: DateTime.now().plus({ hour: 24 }),
       token
     })
 

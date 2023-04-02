@@ -1,0 +1,28 @@
+<div>
+  <label>
+    {{ label }}
+    <input
+      id="{{ name }}"
+      name="{{ name }}"
+      type="{{ type ? type : 'text' }}"
+
+      @if(required)
+        required
+      @end
+
+      @if(placeholder)
+        placeholder="{{ placeholder }}"
+      @endif
+
+      value="{{ flashMessages.get(name, '') || '' }}"
+
+      @if(flashMessages.has(`errors.${name}`))
+        class="text-red"
+      @end
+    >
+  </label>
+
+  @if(flashMessages.has(`errors.${name}`))
+    <p>{{ flashMessages.get(`errors.${name}`) }}</p>
+  @end
+</div>

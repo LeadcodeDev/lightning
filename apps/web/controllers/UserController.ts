@@ -39,8 +39,8 @@ export default class UserController {
     })
 
     const user = await User.create(data)
-    const token = await Token.generatePasswordResetToken(user)
-    const activeEmailLink = Route.makeUrl('user.confirmEmail', [token])
+    const token = await Token.generateVerifyEmailToken(user)
+    const activeEmailLink = Route.makeUrl('verify.email.verify', [token])
 
     await Mail.sendLater((message) => {
       message
@@ -50,6 +50,6 @@ export default class UserController {
         .html(`Click here to activate your account <a href="${Env.get('DOMAIN')}${activeEmailLink}">click !</a>`)
     })
 
-    return response.redirect().toRoute('authentication.showLoginForm')
+    return response.redirect().toRoute('verify.email')
   }
 }
