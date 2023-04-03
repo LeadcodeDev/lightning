@@ -8,16 +8,16 @@ export default class AppProvider {
     const Server = this.app.container.resolveBinding('Adonis/Core/Server')
     const { default: Unpoly } = await import('Services/Unpoly')
 
-    HttpContext.getter('up', function () {
+    HttpContext.getter('unpoly', function () {
       return new Unpoly(this)
     },true)
 
     Server.hooks.before(async (ctx) => {
-      ctx.view.share({ up: ctx.up })
+      ctx.view.share({ up: ctx.unpoly })
     })
 
     Server.hooks.after(async (ctx) => {
-      ctx.up.commit()
+      ctx.unpoly.commit()
     })
   }
 }

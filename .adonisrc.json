@@ -26,6 +26,7 @@
   ],
   "providers": [
     "./providers/AppProvider",
+    "./providers/UnpolyProvider",
     "@adonisjs/core",
     "@adonisjs/session",
     "@adonisjs/view",

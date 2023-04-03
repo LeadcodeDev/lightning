@@ -19,6 +19,7 @@
     "@types/source-map-support": "^0.5.6",
     "adonis-preset-ts": "^2.1.0",
     "pino-pretty": "^10.0.0",
+    "postcss-loader": "^7.0.0",
     "typescript": "~4.6",
     "webpack": "^5.72",
     "webpack-cli": "^4.9.1",
