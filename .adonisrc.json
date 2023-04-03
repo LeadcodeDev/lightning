@@ -27,13 +27,15 @@
   "providers": [
     "./providers/AppProvider",
     "./providers/UnpolyProvider",
+    "./providers/I18nProvider",
     "@adonisjs/core",
     "@adonisjs/session",
     "@adonisjs/view",
     "@adonisjs/shield",
     "@adonisjs/lucid",
     "@adonisjs/auth",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/i18n"
   ],
   "metaFiles": [
     {
@@ -43,7 +45,8 @@
     {
       "pattern": "resources/views/**/*.edge",
       "reloadServer": false
-    }
+    },
+    "resources/lang/**/*.(json|yaml)"
   ],
   "aceProviders": [
     "@adonisjs/repl"

@@ -1,25 +1,19 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import {schema} from "@ioc:Adonis/Core/Validator";
-import {rules} from "@adonisjs/validator/build/src/Rules";
+import LoginValidator from "Apps/web/validators/authentication/LoginValidator";
 
 export default class AuthenticationController {
   public async showLogin ({ view }: HttpContextContract): Promise<string>{
     return view.render('web::views/authentication/login')
   }
 
-  public async login ({ request, response, auth, session }: HttpContextContract) {
-    const { email, password } = await request.validate({
-      schema: schema.create({
-        email: schema.string({ trim: true }, [rules.exists({ table: 'users', column: 'email' })]),
-        password: schema.string({ trim: true })
-      })
-    })
+  public async login ({ request, response, auth, session, i18n }: HttpContextContract) {
+    const { email, password } = await request.validate(LoginValidator)
 
     try {
       await auth.use('web').attempt(email, password)
       response.redirect('/')
     } catch {
-      session.flash('error', 'Bad credentials')
+      session.flash('error', i18n.formatMessage('validators.bad_credentials'))
       return response.redirect().back()
     }
   }
