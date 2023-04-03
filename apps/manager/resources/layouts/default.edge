@@ -10,6 +10,11 @@
     @entryPointScripts('app')
   </head>
   <body>
-    @!section('body')
+    <main class="fixed h-screen w-full flex" up-main>
+      @include('manager::partials/ui/sidebar')
+      <div class="w-full bg-gray-100">
+        @!section('body')
+      </div>
+    </main>
   </body>
 </html>

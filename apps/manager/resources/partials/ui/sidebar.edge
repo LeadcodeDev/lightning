@@ -1,0 +1,26 @@
+<div class="sticky top-0 h-screen w-14 bg-white p-2 hidden md:flex flex-col gap-10">
+  <div>
+    <img src="{{ asset('assets/images/logos/leadcode.jpg') }}" class="rounded-md" alt="logo">
+  </div>
+  <div class="flex flex-col items-center">
+    <div class="bg-gray-100 rounded-md w-full aspect-square flex items-center justify-center">
+      @include('manager::partials/icons/users')
+    </div>
+  </div>
+</div>
+
+<div id="sidebar" class="fixed top-0 h-screen w-[75vw] bg-white p-2 flex md:hidden flex-col gap-10">
+  <div>
+    <img src="{{ asset('assets/images/logos/leadcode.jpg') }}" class="rounded-md w-12" alt="logo">
+  </div>
+  <div class="flex flex-col items-center">
+    <div class="hover:bg-gray-100 rounded-md w-full flex gap-2 items-center">
+      <div class="w-12 aspect-square flex items-center justify-center">
+        @include('manager::partials/icons/users')
+      </div>
+      <p>
+        Users
+      </p>
+    </div>
+  </div>
+</div>
