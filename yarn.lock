@@ -7975,6 +7975,11 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
+unpoly@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/unpoly/-/unpoly-2.7.2.tgz#55044c08bce0984c000f7cd32450af39271727de"
+  integrity sha512-jfBbBRBQMCZZcNS6fckKpFunfdiTDBXW8yxRKqLs09jSrYYUDPd+YuyDoXjABXOro0aDUIMcmyTc7moc1/Z5Tw==
+
 unset-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unset-value/-/unset-value-1.0.0.tgz#8376873f7d2335179ffb1e6fc3a8ed0dfc8ab559"
