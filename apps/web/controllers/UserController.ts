@@ -1,42 +1,18 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from "Domains/users/models/User";
-import {schema} from "@ioc:Adonis/Core/Validator";
-import {rules} from "@adonisjs/validator/build/src/Rules";
 import Token from "Domains/users/models/Token";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Route from "@ioc:Adonis/Core/Route";
 import Env from "@ioc:Adonis/Core/Env";
+import UserValidator from "Apps/web/validators/UserValidator";
 
 export default class UserController {
   public async create ({ view }: HttpContextContract): Promise<string>{
     return view.render('web::views/authentication/create_user')
   }
 
-  public async confirmEmail ({ params, response, session }: HttpContextContract) {
-    const token = await Token.query()
-      .where('token', params.token)
-      .first()
-
-    if (token) {
-      await token.related('user').query().update({
-        hasEmailVerified: true
-      })
-
-      await token.delete()
-      session.flash('success', 'Your email was verified')
-    }
-
-    response.redirect().toRoute('authentication.login')
-  }
-
-  public async store ({ request, response }: HttpContextContract) {
-    const data = await request.validate({
-      schema: schema.create({
-        username: schema.string({ trim: true }),
-        email: schema.string({ trim: true }, [rules.email()]),
-        password: schema.string({ trim: true }, [rules.confirmed()]),
-      })
-    })
+  public async store ({ request, response, i18n }: HttpContextContract) {
+    const data = await request.validate(UserValidator)
 
     const user = await User.create(data)
     const token = await Token.generateVerifyEmailToken(user)
@@ -46,8 +22,8 @@ export default class UserController {
       message
         .from('noreply@leadcode.fr')
         .to(user.email)
-        .subject('Active your account')
-        .html(`Click here to activate your account <a href="${Env.get('DOMAIN')}${activeEmailLink}">click !</a>`)
+        .subject(i18n.formatMessage('emails.active_account.subject'))
+        .html(i18n.formatMessage('emails.active_account.html', { url: Env.get('DOMAIN') + activeEmailLink }))
     })
 
     return response.redirect().toRoute('verify.email')

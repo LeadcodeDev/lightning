@@ -1,0 +1,7 @@
+reset_password:
+  subject: Réinitialisation du mot de passe
+  html: Réinitialisez votre mot de passe <a href="{ url }">ici</a>
+
+active_account:
+  subject: Activation de votre compte
+  html: Cliquez <a href="{ url }">ici</a> pour activer votre compte !

@@ -12,7 +12,7 @@ export default class PasswordResetController {
     return view.render('web::views/password/forgot')
   }
 
-  public async send ({ request, response, session }: HttpContextContract): Promise<void> {
+  public async send ({ request, response, session, i18n }: HttpContextContract): Promise<void> {
     const { email } = await request.validate({
       schema: schema.create({
         email: schema.string([rules.email()])
@@ -28,13 +28,17 @@ export default class PasswordResetController {
         message
           .from('noreply@leadcode.fr')
           .to(user.email)
-          .subject('Reset your password')
-          .html(`Reset your password <a href="${Env.get('DOMAIN')}${resetLink}">here</a>`)
+          .subject(i18n.formatMessage('emails.reset_password.subject'))
+          .html(i18n.formatMessage('emails.reset_password.html', { url: Env.get('DOMAIN') + resetLink }))
         }
       )
     }
 
-    session.flash('success', 'If an account matches the provided email, you will receive a password reset link shortly')
+    session.flash(
+      i18n.formatMessage('password.success.keyword'),
+      i18n.formatMessage('password.success.receive_password_reset_link')
+    )
+
     return response.redirect().back()
   }
 
@@ -44,7 +48,7 @@ export default class PasswordResetController {
     return view.render('web::views/password/reset', { isValid, token: params.token })
   }
 
-  public async store ({ request, response, session, auth }: HttpContextContract): Promise<void> {
+  public async store ({ request, response, session, auth, i18n }: HttpContextContract): Promise<void> {
     const { token, password } = await request.validate({
       schema: schema.create({
         token: schema.string({ trim: true }),
@@ -55,7 +59,11 @@ export default class PasswordResetController {
     const user = await Token.getPasswordResetUser(token)
 
     if (!user) {
-      session.flash('error', 'Token expired or associated user could not be found')
+      session.flash(
+        i18n.formatMessage('password.error.keyword'),
+        i18n.formatMessage('password.error.token_could_not_be_found')
+      )
+
       return response.redirect().back()
     }
 

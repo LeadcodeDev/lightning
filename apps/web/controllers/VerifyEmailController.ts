@@ -9,11 +9,6 @@ export default class VerifyEmailController {
   public async verify ({ response, session, params, auth }: HttpContextContract): Promise<void> {
     const user = await Token.getUserToken(params.token, 'VERIFY_EMAIL')
 
-    if (!auth.user) {
-      session.put('hasVerifyingEmail', true)
-      return response.redirect().toRoute('/')
-    }
-
     if (!user) {
       session.flash('token', 'Your token is invalid or expired')
       return response.redirect().toRoute('verify.email')
@@ -22,6 +17,8 @@ export default class VerifyEmailController {
     user.hasEmailVerified = true
     await user.save()
     await Token.expireTokens(user, 'verifyEmailTokens')
+
+    await auth.login(user)
 
     return response.redirect().toRoute('/')
   }

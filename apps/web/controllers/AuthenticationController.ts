@@ -13,7 +13,7 @@ export default class AuthenticationController {
       await auth.use('web').attempt(email, password)
       response.redirect('/')
     } catch {
-      session.flash('error', i18n.formatMessage('validators.bad_credentials'))
+      session.flash('error', i18n.formatMessage('authentication.errors.bad_credentials'))
       return response.redirect().back()
     }
   }

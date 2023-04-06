@@ -29,10 +29,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
-    if (error.code === 'E_VALIDATION_FAILURE') {
-      ctx.up.setTarget(ctx.up.getFailTarget())
-    }
-
     return super.handle(error, ctx)
   }
 }

@@ -10,7 +10,5 @@ export default class LoginValidator {
     password: schema.string({ trim: true })
   })
 
-  public messages: CustomMessages = {
-    required: 'Le champ {{ field }} est requis',
-  }
+  public messages: CustomMessages = this.ctx.i18n.validatorMessages('validator.user')
 }

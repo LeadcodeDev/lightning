@@ -7,7 +7,7 @@ Route.group(() => {
   Route.post('/password/store', 'PasswordResetController.store').as('password.store')
 
   Route.get('/verify/email', 'VerifyEmailController.index').as('verify.email')
-  Route.get('/verify/email/:token', 'VerifyEmailController.verify').as('verify.email.verify').middleware('auth')
+  Route.get('/verify/email/:token', 'VerifyEmailController.verify').as('verify.email.verify')
 
   Route.group(() => {
     Route.get('account/create', 'UserController.create').as('user.create')
