@@ -22,7 +22,13 @@
     "./apps/manager/routes",
     "./apps/web/routes",
     "./start/view",
-    "./start/kernel"
+    "./start/kernel",
+    {
+      "file": "./start/validator",
+      "environment": [
+        "web"
+      ]
+    }
   ],
   "providers": [
     "./providers/AppProvider",

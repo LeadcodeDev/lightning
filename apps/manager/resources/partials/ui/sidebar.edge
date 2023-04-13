@@ -1,5 +1,5 @@
 @set('links', [
-  { label: 'Home', icon: 'manager::partials/icons/users' }
+  { label: 'Home', href: 'manager.users.index', icon: 'manager::partials/icons/users' }
 ])
 
 <div class="sticky top-0 h-screen w-14 bg-white p-2 hidden md:flex flex-col gap-10">
@@ -8,9 +8,9 @@
   </div>
   <div class="flex flex-col items-center">
     @each (link in links)
-      <div class="bg-gray-100 rounded-md w-full aspect-square flex items-center justify-center">
+      <a href="{{ route(link.href) }}" class="bg-gray-100 rounded-md w-full aspect-square flex items-center justify-center">
         @include(link.icon)
-      </div>
+      </a>
     @end
   </div>
 </div>
@@ -26,7 +26,7 @@
           @include(link.icon)
         </div>
         <p>
-          Users
+          {{ link.label }}
         </p>
       </div>
     @end

@@ -5,3 +5,10 @@ reset_password:
 active_account:
   subject: Active your account
   html: Click here to activate your account <a href="{ url }">click !</a>
+
+new_account_give_password:
+  subject: Welcome to our services !
+  html: >
+    Your account has been created with the following ids :
+    • Username : { email }
+    • Password : { password }

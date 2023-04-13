@@ -2,7 +2,7 @@
   <label>
     {{ label }}
     @if(required)
-      *
+      <span class="text-sm text-red-500">*</span>
     @end
   </label>
 
@@ -20,7 +20,7 @@
       placeholder="{{ placeholder }}"
     @endif
 
-    value="{{ flashMessages.get(name, '') || '' }}"
+    value="{{ flashMessages.get(name, '') || value || '' }}"
   />
 
   @if(flashMessages.has(`errors.${name}`))
