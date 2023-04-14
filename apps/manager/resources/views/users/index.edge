@@ -10,13 +10,16 @@
       tabs: [
         { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: true },
         { label: 'Roles', href: 'manager.roles.index', current: false },
-        { label: 'Permissions', href: 'manager.users.index', current: false }
+        { label: 'Permissions', href: 'manager.permissions.index', current: false }
       ]
     })
 
     @!component('manager::components/table', {
       resource: 'manager.users',
       data: users,
+      actions: {
+        edit: 'keywords.users.buttons.edit'
+      },
       fields: [
         { column: 'username', label: 'Identité' },
         { column: 'email', label: 'Email' }

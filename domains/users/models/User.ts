@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import { beforeCreate } from "@adonisjs/lucid/build/src/Orm/Decorators";
+import {column, beforeSave, BaseModel, hasMany, HasMany, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
+import {beforeCreate, computed} from "@adonisjs/lucid/build/src/Orm/Decorators";
 import { randomUUID } from 'node:crypto'
 import Token from "Domains/users/models/Token";
+import Role from "Domains/users/models/Role";
+import { RequestContract } from '@ioc:Adonis/Core/Request'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -30,6 +32,14 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @computed()
+  public get roleIds (): string[] {
+    return this.roles.map((role: Role) => role.id)
+  }
+
+  @manyToMany(() => Role)
+  public roles: ManyToMany<typeof Role>
+
   @hasMany(() => Token)
   public tokens: HasMany<typeof Token>
 
@@ -52,6 +62,13 @@ export default class User extends BaseModel {
   public static async hashPassword (user: User): Promise<void> {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
+    }
+  }
+
+  public static async syncRoles (user: User, request: RequestContract): Promise<void> {
+    const roles = request.input('roles', [])
+    if (roles) {
+      await user.related('roles').sync(Array.isArray(roles) ? [...roles] : [roles])
     }
   }
 }

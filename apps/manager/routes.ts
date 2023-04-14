@@ -11,9 +11,15 @@ Route.group(() => {
   }).prefix('users')
 
   Route.group(() => {
-    Route.get('/', 'UsersController.index').as('manager.roles.index')
-    Route.get('/:id', 'UsersController.show').as('manager.roles.show')
-    Route.get('/edit/:id', 'UsersController.edit').as('manager.roles.edit')
-    Route.put('/update/:id', 'UsersController.update').as('manager.roles.update')
+    Route.get('/', 'RolesController.index').as('manager.roles.index')
+    Route.get('/create', 'RolesController.create').as('manager.roles.create')
+    Route.get('/edit/:id', 'RolesController.edit').as('manager.roles.edit')
+    Route.post('/', 'RolesController.store').as('manager.roles.store')
+    Route.put('/update/:id', 'RolesController.update').as('manager.roles.update')
   }).prefix('roles')
+
+  Route.group(() => {
+    Route.get('/', 'PermissionsController.index').as('manager.permissions.index')
+    Route.get('/:id', 'PermissionsController.show').as('manager.permissions.show')
+  }).prefix('permissions')
 }).namespace('Apps/manager/controllers').prefix('manager')

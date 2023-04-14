@@ -7,3 +7,23 @@ html, body {
   color: #46444c;
   position: relative;
 }
+
+.ss-main {
+  @apply py-2;
+}
+
+.ss-main .ss-values .ss-value {
+  @apply bg-purple-500 py-0.5;
+}
+
+.ss-content .ss-list {
+  @apply mt-2 space-y-1;
+}
+
+.ss-content .ss-list .ss-option:hover {
+  @apply bg-gray-100 text-gray-800 rounded-md;
+}
+
+.ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
+  @apply bg-gray-100 text-gray-800 rounded-md;
+}

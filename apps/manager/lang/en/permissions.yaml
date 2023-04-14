@@ -1,0 +1,28 @@
+access_manager:
+  label: Access Manager
+  description: User can see and navigate under the manager
+
+users:
+  view:
+    label: View users
+    description: User can see users account
+  edit:
+    label: Edit user
+    description: User can edit user accounts
+  delete:
+    label: Delete user
+    description: User can delete user accounts
+  manage_roles:
+    label: Manage user roles
+    description: User can manage user account roles
+
+roles:
+  view:
+    label: View roles
+    description: User can see users account
+  edit:
+    label: Edit roles
+    description: User can edit user accounts
+  delete:
+    label: Delete roles
+    description: User can delete user accounts

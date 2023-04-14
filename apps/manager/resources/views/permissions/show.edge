@@ -1,0 +1,24 @@
+@layout('manager::layouts/default')
+
+@section('body')
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des permissions',
+      tabs: [
+        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
+        { label: 'Roles', href: 'manager.roles.index', current: false },
+        { label: 'Permissions', href: 'manager.permissions.index', current: true }
+      ]
+    })
+
+    <div class="py-10">
+      <h1 class="text-xl font-medium">
+        {{ t(permission.label) }}
+      </h1>
+      <p class="opacity-75">
+        {{ t(permission.description) }}
+      </p>
+    </div>
+  @end
+@end

@@ -1,5 +1,6 @@
 import 'unpoly'
 import 'unpoly/unpoly.css'
+import SlimSelect from "slim-select";
 
 up.fragment.config.mainTargets.push('[layout-main]')
 
@@ -17,3 +18,18 @@ up.on('up:fragment:loaded', (event) => {
     event.request.loadPage()
   }
 })
+
+up.on('up:fragment:inserted', () => {
+  const selects = document.querySelectorAll('select')
+
+  selects.forEach((select) => {
+    new SlimSelect({
+      select: `#${select.id}`,
+      settings: {
+        allowDeselect: true,
+        closeOnSelect: false,
+      }
+    })
+  })
+})
+

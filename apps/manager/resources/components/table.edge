@@ -1,37 +1,60 @@
 <div class="mt-8 flow-root">
   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-      <table class="min-w-full divide-y divide-gray-300">
-        <thead>
-        <tr>
-          @each(field in fields)
-            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm text-gray-900 sm:pl-0">
-              {{ field.label }}
+      @if(data.length)
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+          <tr>
+            @each(field in fields)
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm text-gray-900 sm:pl-0">
+                {{ field.label }}
+              </th>
+            @end
+
+            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+              <span class="sr-only">actions</span>
             </th>
-          @end
-
-          <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-            <span class="sr-only">actions</span>
-          </th>
-        </tr>
-
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          @each(element in data)
-            <tr>
-              @each(field in fields)
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  {{ element[field.column] }}
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            @each(element in data)
+              <tr>
+                @each(field in fields)
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    @if(field.translation)
+                      {{ t(element[field.column]) }}
+                    @else
+                      {{ element[field.column] }}
+                    @end
+                  </td>
+                @end
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                  @if(actions?.edit)
+                    <a
+                      href="{{ route(resource + '.edit', [element.id]) }}"
+                      class="text-indigo-600 hover:text-indigo-900"
+                    >
+                      {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
+                    </a>
+                  @end
+                  @if(actions?.show)
+                    <a
+                      href="{{ route(resource + '.show', [element.id]) }}"
+                      class="text-indigo-600 hover:text-indigo-900"
+                    >
+                      {{ t(actions.show) }}<span class="sr-only">, {{ element[0] }}</span>
+                    </a>
+                  @end
                 </td>
-              @end
-
-              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                <a href="{{ route(resource + '.edit', [element.id]) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
-              </td>
-            </tr>
-          @end
-        </tbody>
-      </table>
+              </tr>
+            @end
+          </tbody>
+        </table>
+      @else
+        <div>
+          Aucun résultats
+        </div>
+      @end
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@
   @end
 
   @component('manager::components/container')
-    @form.container({ method: 'PUT', action: route('manager.users.update', [user.id]) })
+    @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
       @!form.input({
         label: 'Username',
         name: 'username',
@@ -29,6 +29,20 @@
         value: user.email,
         required: true
       })
+
+      @form.select({ label: 'Roles', id: 'roles', name: 'roles', multiple: true })
+        @each(role in roles)
+          <option
+            value="{{ role.id }}"
+            @if(user.roleIds.includes(role.id))
+            selected
+            @end
+          >
+            {{ role.label }}
+          </option>
+        @end
+      @end
+      <button type="submit">Submit</button>
     @end
   @end
 @end

@@ -1,0 +1,11 @@
+permissions:
+  buttons:
+    show: Show permission
+
+users:
+  buttons:
+    edit: Edit user
+
+roles:
+  buttons:
+    edit: Edit role

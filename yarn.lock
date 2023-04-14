@@ -7489,6 +7489,11 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
+slim-select@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.4.5.tgz#7453d9469c4ce6d6121608a8e384561e62057382"
+  integrity sha512-64plTJiYwJJqvOQrf3Ty8BvgC3GbNPlGelT7AdhLZ8Ax0z7hxyhHHc5Mfhp1BUVkDSt0+gTpRZH2McIrjia68Q==
+
 slugify@^1.6.1, slugify@^1.6.5:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.6.tgz#2d4ac0eacb47add6af9e04d3be79319cbcc7924b"
