@@ -1,0 +1,9 @@
+user:
+  username:
+    required: Le champ username est requis
+  email:
+    required: Le champ email est requis
+    email: La valeur attachée au champ email ne respecte pas le format d'un email
+  password:
+    required: Le champ mot de passe est requis
+  password_confirmation.confirmed: Les valeurs entre le mot de passe et la confirmation du mot de passe ne correspondent pas

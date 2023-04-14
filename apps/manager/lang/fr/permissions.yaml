@@ -1,0 +1,28 @@
+access_manager:
+  label: Accès au manager
+  description: L'utilisateur peut accéder et naviguer dans le manager
+
+users:
+  view:
+    label: Accès aux utilisateurs
+    description: L'utilisateur peut voir les comptes utilisateurs
+  edit:
+    label: Edition des utilisateurs
+    description: L'utilisateur peut modifier un compte utilisateur
+  delete:
+    label: Suppression des utilisateurs
+    description: L'utilisateur peut supprimer un compte utilisateur
+  manage_roles:
+    label: Gestion des roles des utilisateurs
+    description: L'utilisateur peut modifier les rôles des comptes utilisateurs
+
+roles:
+  view:
+    label: Accès au rôles
+    description: L'utilisateur peut voir les roles
+  edit:
+    label: Edition des rôles
+    description: L'utilisateur peut modifier les rôles
+  delete:
+    label: Suppression des rôles
+    description: L'utilisateur peut supprimer les rôles

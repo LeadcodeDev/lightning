@@ -1,0 +1,11 @@
+@layout('web::layouts/authentication')
+
+@section('body')
+  @form.container({ method: 'POST', action: route('user.store') })
+    @!form.input({ label: 'Username', type: 'text', name: 'username' })
+    @!form.input({ label: 'Email', type: 'email', name: 'email' })
+    @!form.input({ label: 'Mot de passe', type: 'password', name: 'password' })
+    @!form.input({ label: 'Confirmation du mot de passe', type: 'password', name: 'password_confirmation' })
+    <button type="submit">Créer mon compte</button>
+  @end
+@end

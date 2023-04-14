@@ -1,0 +1,9 @@
+user:
+  username:
+    required: The field email is required
+  email:
+    required: The field email is required
+    email: The attached value on the email field isn't an email
+  password:
+    required: The field password is required
+  password_confirmation.confirmed: The values between password and password confirmation are mismatch

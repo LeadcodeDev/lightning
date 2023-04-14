@@ -1,0 +1,49 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des comptes roles',
+      actions: {
+        create: { label: 'Créer un role', href: 'manager.roles.create' }
+      },
+      tabs: [
+        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
+        { label: 'Roles', href: 'manager.roles.index', current: true },
+        { label: 'Permissions', href: 'manager.permissions.index', current: false }
+      ]
+    })
+    <div class="py-10">
+      @form.container({ method: 'PUT', action: route('manager.roles.update', [role.id]) + '?_method=PUT' })
+        @!form.input({
+          label: 'Label',
+          name: 'label',
+          value: role.label,
+          required: true
+        })
+
+        @!form.input({
+          type: 'number',
+          label: 'Niveau d\'importance',
+          name: 'power',
+          value: role.power,
+          required: true
+        })
+
+        @form.select({ label: 'Permissions', id: 'permissions', name: 'permissions', multiple: true })
+          @each(permission in permissions)
+            <option
+              value="{{ permission.id }}"
+              @if(role.permissionIds.includes(permission.id))
+                selected
+              @end
+            >
+              {{ t(permission.label) }}
+            </option>
+          @end
+        @end
+      <button type="submit">Submit</button>
+      @end
+    </div>
+  @end
+@end

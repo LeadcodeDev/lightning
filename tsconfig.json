@@ -12,8 +12,14 @@
     "rootDir": "./",
     "sourceMap": true,
     "paths": {
+      "Domains/*": [
+        "./domains/*"
+      ],
       "App/*": [
         "./app/*"
+      ],
+      "Apps/*": [
+        "./apps/*"
       ],
       "Config/*": [
         "./config/*"
@@ -23,6 +29,9 @@
       ],
       "Database/*": [
         "./database/*"
+      ],
+      "Services/*": [
+        "./services/*"
       ]
     },
     "types": [
@@ -31,7 +40,11 @@
       "@adonisjs/session",
       "@adonisjs/view",
       "@adonisjs/shield",
-      "@japa/preset-adonis/build/adonis-typings"
+      "@japa/preset-adonis/build/adonis-typings",
+      "@adonisjs/lucid",
+      "@adonisjs/auth",
+      "@adonisjs/mail",
+      "@adonisjs/i18n"
     ]
   }
 }

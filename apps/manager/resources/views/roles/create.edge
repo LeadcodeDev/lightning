@@ -1,0 +1,45 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des comptes utilisateurs',
+      tabs: [
+        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
+        { label: 'Roles', href: 'manager.roles.index', current: false },
+        { label: 'Permissions', href: 'manager.users.index', current: true }
+      ]
+    })
+
+    <div class="py-10">
+      <div class="pb-5">
+        @component('manager::components/ui/heading-1')
+          Nouveau rôle
+        @end
+      </div>
+
+      @form.container({ method: 'POST', action: route('manager.roles.store') })
+        @!form.input({
+          label: 'Label',
+          name: 'label',
+          required: true
+        })
+
+        @!form.input({
+          type: 'number',
+          label: 'Niveau d\'importance',
+          name: 'power',
+          required: true
+        })
+
+        @form.select({ label: 'Permissions', id: 'permissions', name: 'permissions', multiple: true })
+          @each(permission in permissions)
+            <option value="{{ permission.id }}">{{ t(permission.label) }}</option>
+          @end
+        @end
+
+      <button type="submit">Submit</button>
+      @end
+    </div>
+  @end
+@end

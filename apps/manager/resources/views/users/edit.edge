@@ -1,0 +1,48 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: 'Utilisateurs', href: 'manager.users.index', current: false },
+      { label: user.username, href: '', current: true }
+    ]
+  })
+
+  @component('manager::components/container')
+    @component('manager::components/ui/heading-1')
+      {{ user.username }}
+    @end
+  @end
+
+  @component('manager::components/container')
+    @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
+      @!form.input({
+        label: 'Username',
+        name: 'username',
+        value: user.username,
+        required: true
+      })
+
+      @!form.input({
+        label: 'Email',
+        name: 'email',
+        value: user.email,
+        required: true
+      })
+
+      @form.select({ label: 'Roles', id: 'roles', name: 'roles', multiple: true })
+        @each(role in roles)
+          <option
+            value="{{ role.id }}"
+            @if(user.roleIds.includes(role.id))
+            selected
+            @end
+          >
+            {{ role.label }}
+          </option>
+        @end
+      @end
+      <button type="submit">Submit</button>
+    @end
+  @end
+@end

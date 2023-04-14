@@ -1,0 +1,29 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des comptes roles',
+      actions: {
+        create: { label: 'Créer un role', href: 'manager.roles.create' }
+      },
+      tabs: [
+        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
+        { label: 'Roles', href: 'manager.roles.index', current: true },
+        { label: 'Permissions', href: 'manager.permissions.index', current: false }
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.roles',
+      data: roles,
+      actions: {
+        edit: 'keywords.roles.buttons.edit',
+        delete: 'keywords.roles.buttons.delete'
+      },
+      fields: [
+        { column: 'label', label: 'Label' },
+      ]
+    })
+  @end
+@end

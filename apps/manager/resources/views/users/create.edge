@@ -1,0 +1,38 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des comptes utilisateurs',
+      tabs: [
+        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: true },
+        { label: 'Roles', href: 'manager.roles.index', current: false },
+        { label: 'Permissions', href: 'manager.users.index', current: false }
+      ]
+    })
+
+    <div class="py-10">
+      <div class="pb-5">
+        @component('manager::components/ui/heading-1')
+          Nouvel utilisateur
+        @end
+      </div>
+
+      @form.container({ method: 'POST', action: route('manager.users.store') })
+        @!form.input({
+          label: 'Username',
+          name: 'username',
+          required: true
+        })
+
+        @!form.input({
+          label: 'Email',
+          name: 'email',
+          required: true
+        })
+
+      <button type="submit">Submit</button>
+      @end
+    </div>
+  @end
+@end

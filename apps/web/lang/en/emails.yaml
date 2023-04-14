@@ -1,0 +1,14 @@
+reset_password:
+  subject: Reset your password
+  html: Reset your password <a href="{ url }">here</a>
+
+active_account:
+  subject: Active your account
+  html: Click here to activate your account <a href="{ url }">click !</a>
+
+new_account_give_password:
+  subject: Welcome to our services !
+  html: >
+    Your account has been created with the following ids :
+    • Username : { email }
+    • Password : { password }
