@@ -5,7 +5,9 @@ permissions:
 users:
   buttons:
     edit: Editer l'utilisateur
+    delete: Supprimer l'utilisateur
 
 roles:
   buttons:
     edit: Editer le role
+    delete: Supprimer le role

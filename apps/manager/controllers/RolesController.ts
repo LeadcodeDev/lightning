@@ -45,4 +45,11 @@ export default class RolesController {
 
     return response.redirect().toRoute('manager.roles.index')
   }
+
+  public async destroy ({ response, params }: HttpContextContract): Promise<void> {
+    const role: Role = await Role.findOrFail(params.id)
+    await role.delete()
+
+    response.redirect().back()
+  }
 }

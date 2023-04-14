@@ -37,6 +37,7 @@
                       {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
                     </a>
                   @end
+
                   @if(actions?.show)
                     <a
                       href="{{ route(resource + '.show', [element.id]) }}"
@@ -44,6 +45,22 @@
                     >
                       {{ t(actions.show) }}<span class="sr-only">, {{ element[0] }}</span>
                     </a>
+                  @end
+
+                  @if(actions?.delete)
+                    @form.container({ method: 'POST', action: route(resource + '.destroy', [element.id]) + '?_method=delete' })
+                      <button
+                        type="button"
+                        class="text-indigo-600 hover:text-indigo-900"
+                        onclick="(() => {
+                          if (confirm('Êtes-vous sur de vouloir supprimer {{ element.label }} ?') === true) {
+                            this.form.submit()
+                          }
+                        })()"
+                      >
+                        {{ t(actions.delete) }}<span class="sr-only">, {{ element[0] }}</span>
+                      </button>
+                    @end
                   @end
                 </td>
               </tr>

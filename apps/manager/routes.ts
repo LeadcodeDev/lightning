@@ -16,6 +16,7 @@ Route.group(() => {
     Route.get('/edit/:id', 'RolesController.edit').as('manager.roles.edit')
     Route.post('/', 'RolesController.store').as('manager.roles.store')
     Route.put('/update/:id', 'RolesController.update').as('manager.roles.update')
+    Route.delete('/:id', 'RolesController.destroy').as('manager.roles.destroy')
   }).prefix('roles')
 
   Route.group(() => {
