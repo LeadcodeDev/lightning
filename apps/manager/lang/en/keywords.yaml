@@ -11,3 +11,7 @@ roles:
   buttons:
     edit: Edit role
     delete: Delete role
+
+settings:
+  buttons:
+    edit: Edit setting

@@ -7,9 +7,13 @@ export default class HtmlMinifier {
 
     const method: string = request.method()
     const accepts: string[] = request.accepts([]) ?? []
+    const isPng = request.url().endsWith('png')
+    const isJpg = request.url().endsWith('jpg')
+    const isJpeg = request.url().endsWith('jpeg')
+    const isWebp = request.url().endsWith('webp')
     const isXml = request.url().endsWith('xml')
 
-    if (method != 'GET' || !accepts.includes('text/html') || isXml) {
+    if (method != 'GET' || !accepts.includes('text/html') || isXml || isPng || isJpg || isJpeg || isWebp) {
       return
     }
 

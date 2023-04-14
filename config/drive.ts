@@ -7,7 +7,8 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { driveConfig } from '@adonisjs/core/build/config'
-import Application from '@ioc:Adonis/Core/Application'
+import {join} from "node:path";
+import * as process from "process";
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,9 @@ export default driveConfig({
       | files.
       |
       */
-      root: Application.tmpPath('uploads'),
+      root: Env.get('NODE_ENV') === 'production'
+        ? join(process.cwd(), '..', 'uploads')
+        : join(process.cwd(), 'uploads'),
 
       /*
       |--------------------------------------------------------------------------

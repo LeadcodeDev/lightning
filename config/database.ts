@@ -47,7 +47,7 @@ const databaseConfig: DatabaseConfig = {
       },
       migrations: {
         naturalSort: true,
-        paths: ['users'].map((domain: string) => join(process.cwd(), 'domains', domain, 'migrations')),
+        paths: ['users', 'website'].map((domain: string) => join(process.cwd(), 'domains', domain, 'migrations')),
       },
       healthCheck: false,
       debug: false,
