@@ -1,0 +1,43 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des configurations du site',
+      tabs: [
+        { label: 'Configuration globales', href: 'manager.settings.index', current: true },
+      ]
+    })
+
+    <div class="py-10">
+      <h1 class="text-xl font-medium">
+        {{ t(setting.label) }}
+      </h1>
+      <p class="opacity-75">
+        {{ t(setting.description) }}
+      </p>
+
+      <div class="pt-5">
+        @form.container({ method: 'PUT', action: route('manager.settings.update', [setting.id]) + '?_method=PUT' })
+          @if(setting.mode == 'image')
+          <label for="picture">
+            @if(setting.picture)
+              <img src="{{ setting.picture?.url }}" class="w-20" />
+            @end
+            <input type="file" id="picture" name="picture" />
+          </label>
+
+          @else
+            @!form.input({
+              label: 'Valeur',
+              name: 'value',
+              value: setting.value,
+            })
+          @end
+
+          <button type="submit">Submit</button>
+        @end
+      </div>
+    </div>
+  @end
+@end
