@@ -46,7 +46,8 @@
       "@adonisjs/mail",
       "@adonisjs/i18n",
       "@adonisjs/redis",
-      "@adonisjs/attachment-lite"
+      "@adonisjs/attachment-lite",
+      "@adonisjs/lucid-slugify"
     ]
   }
 }

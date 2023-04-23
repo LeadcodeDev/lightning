@@ -16,5 +16,5 @@ export default class RoleValidator {
     ]),
   })
 
-  public messages: CustomMessages = this.ctx.i18n.validatorMessages('validators.roles')
+  public messages: CustomMessages = this.ctx.i18n.validatorMessages('models.roles.validator')
 }

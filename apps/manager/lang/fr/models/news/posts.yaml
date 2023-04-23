@@ -1,0 +1,5 @@
+keywords:
+  state:
+    published: Publié
+    waiting_for_publish: En attente
+    draft: Brouillon

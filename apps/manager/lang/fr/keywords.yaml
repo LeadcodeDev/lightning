@@ -15,3 +15,9 @@ roles:
 settings:
   buttons:
     edit: Editer la configuration
+
+news:
+  posts:
+    buttons:
+      edit: Editer l'actualité
+      delete: Supprimer l'actualité

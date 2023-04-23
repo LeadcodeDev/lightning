@@ -51,7 +51,7 @@ const i18nConfig: I18nConfig = {
   | inside the `resources/lang` directory.
   |
   */
-  supportedLocales: ['fr', 'en'],
+  supportedLocales: ['fr'],
 
   /*
   |--------------------------------------------------------------------------
@@ -103,6 +103,9 @@ const i18nConfig: I18nConfig = {
         join(process.cwd(), 'apps', 'web', 'lang'),
         join(process.cwd(), 'apps', 'manager', 'lang')
       ]
+    },
+    posts: {
+      enabled: true
     }
   },
 }

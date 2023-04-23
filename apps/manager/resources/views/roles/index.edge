@@ -3,14 +3,14 @@
 @section('body')
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des comptes roles',
+      title: t('models.roles.breadcrumb.label'),
       actions: {
-        create: { label: 'Créer un role', href: 'manager.roles.create' }
+        create: { label: t('models.roles.breadcrumb.actions.create'), href: 'manager.roles.create' }
       },
       tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
-        { label: 'Roles', href: 'manager.roles.index', current: true },
-        { label: 'Permissions', href: 'manager.permissions.index', current: false }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: true },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: false }
       ]
     })
 
@@ -22,7 +22,7 @@
         delete: 'keywords.roles.buttons.delete'
       },
       fields: [
-        { column: 'label', label: 'Label' },
+        { column: 'label', label: t('models.roles.table.columns.label') },
       ]
     })
   @end

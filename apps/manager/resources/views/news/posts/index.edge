@@ -1,0 +1,27 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des actualités',
+      actions: {
+        create: { label: 'Créer une actualité', href: 'manager.news.posts.create' }
+      },
+      tabs: [
+        { label: 'Actualités', href: 'manager.news.posts.index', current: true },
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.news.posts',
+      data: posts,
+      actions: {
+        edit: 'keywords.news.posts.buttons.edit',
+        delete: 'keywords.news.posts.buttons.delete'
+      },
+      fields: [
+        { column: 'title', label: 'Intitulé de l\'actualité', translation: true },
+      ]
+    })
+  @end
+@end

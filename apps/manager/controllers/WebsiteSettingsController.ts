@@ -6,9 +6,14 @@ import Redis from '@ioc:Adonis/Addons/Redis'
 import {Attachment} from "@adonisjs/attachment-lite/build/src/Attachment";
 
 export default class WebsiteSettingsController {
-  public async index ({ view }: HttpContextContract): Promise<string> {
-    const settings: WebsiteSetting[] = await WebsiteSetting.all()
-    return view.render('manager::views/settings/index', { settings })
+  public async index ({ view, request }: HttpContextContract): Promise<string> {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 10)
+
+    const settings = await WebsiteSetting.query()
+      .paginate(page, limit)
+
+    return view.render('manager::views/settings/index', { settings: settings.toJSON() })
   }
 
   public async edit ({ view, params }: HttpContextContract): Promise<string> {

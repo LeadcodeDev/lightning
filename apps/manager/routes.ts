@@ -29,6 +29,17 @@ Route.group(() => {
 
   Route.group(() => {
     Route.group(() => {
+      Route.get('/', 'PostsController.index').as('manager.news.posts.index')
+      Route.get('/create', 'PostsController.create').as('manager.news.posts.create')
+      Route.post('/', 'PostsController.store').as('manager.news.posts.store')
+      Route.get('/edit/:id', 'PostsController.edit').as('manager.news.posts.edit')
+      Route.put('/update/:id', 'PostsController.update').as('manager.news.posts.update')
+      Route.delete('/:id', 'PostsController.destroy').as('manager.news.posts.destroy')
+    }).prefix('posts')
+  }).prefix('news')
+
+  Route.group(() => {
+    Route.group(() => {
       Route.get('/', 'WebsiteSettingsController.index').as('manager.settings.index')
       Route.get('/edit/:id', 'WebsiteSettingsController.edit').as('manager.settings.edit')
       Route.put('/update/:id', 'WebsiteSettingsController.update').as('manager.settings.update')

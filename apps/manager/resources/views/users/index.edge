@@ -3,14 +3,14 @@
 @section('body')
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des comptes utilisateurs',
+      title: t('models.users.breadcrumb.label'),
       actions: {
-        create: { label: 'Créer un compte utilisateur', href: 'manager.users.create' }
+        create: { label: t('models.users.breadcrumb.actions.create'), href: 'manager.users.create' }
       },
       tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: true },
-        { label: 'Roles', href: 'manager.roles.index', current: false },
-        { label: 'Permissions', href: 'manager.permissions.index', current: false }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: true },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: false },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: false }
       ]
     })
 
@@ -21,8 +21,8 @@
         edit: 'keywords.users.buttons.edit'
       },
       fields: [
-        { column: 'username', label: 'Identité' },
-        { column: 'email', label: 'Email' }
+        { column: 'username', label: t('models.users.table.columns.label') },
+        { column: 'email', label: t('models.users.table.columns.email') }
       ]
     })
   @end
