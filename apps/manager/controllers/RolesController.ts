@@ -4,9 +4,14 @@ import RoleValidator from "Apps/manager/validators/RoleValidator";
 import Permission from "Domains/users/models/Permission";
 
 export default class RolesController {
-  public async index ({ view }: HttpContextContract): Promise<string> {
-    const roles: Role[] = await Role.all()
-    return view.render('manager::views/roles/index', { roles })
+  public async index ({ view, request }: HttpContextContract): Promise<string> {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 2)
+
+    const roles = await Role.query()
+      .paginate(page, limit)
+
+    return view.render('manager::views/roles/index', { roles: roles.toJSON() })
   }
 
   public async create ({ view }: HttpContextContract): Promise<string> {

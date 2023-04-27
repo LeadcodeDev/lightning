@@ -1,7 +1,7 @@
 <div class="mt-8 flow-root">
   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-      @if(data.length)
+      @if(data.data.length)
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
           <tr>
@@ -17,7 +17,7 @@
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            @each(element in data)
+            @each(element in data.data)
               <tr>
                 @each(field in fields)
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -53,7 +53,7 @@
                         type="button"
                         class="text-indigo-600 hover:text-indigo-900"
                         onclick="(() => {
-                          if (confirm('Êtes-vous sur de vouloir supprimer {{ element.label }} ?') === true) {
+                          if (confirm('Êtes-vous sur de vouloir supprimer l\'élément ?') === true) {
                             this.form.submit()
                           }
                         })()"
@@ -67,9 +67,44 @@
             @end
           </tbody>
         </table>
+
+        <nav class="flex items-center justify-between border-t border-gray-200 bg-white py-3" aria-label="Pagination">
+          <div class="hidden sm:block">
+            <p class="text-sm text-gray-700">
+              {{ t(
+                'ui.table.breadcrumb_message', {
+                  current: data.meta.current_page,
+                  length: data.meta.last_page
+                })
+              }}
+            </p>
+          </div>
+
+          <div class="flex flex-1 justify-between sm:justify-end gap-x-2">
+            @if(data.meta.previous_page_url)
+              <a href="{{ route(resource + '.index') + data.meta.previous_page_url }}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
+                {{ t('ui.table.keywords.previous') }}
+              </a>
+            @else
+              <button disabled class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 focus-visible:outline-offset-0 cursor-not-allowed">
+                {{ t('ui.table.keywords.previous') }}
+              </button>
+            @end
+
+            @if(data.meta.next_page_url)
+              <a href="{{ route(resource + '.index') + data.meta.next_page_url }}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
+                {{ t('ui.table.keywords.next') }}
+              </a>
+            @else
+              <button disabled class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 focus-visible:outline-offset-0 cursor-not-allowed">
+                {{ t('ui.table.keywords.next') }}
+              </button>
+            @end
+            </div>
+        </nav>
       @else
         <div>
-          Aucun résultats
+          {{ t('ui.table.keywords.no_data') }}
         </div>
       @end
     </div>

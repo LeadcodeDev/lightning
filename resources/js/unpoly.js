@@ -1,6 +1,7 @@
 import 'unpoly'
 import 'unpoly/unpoly.css'
 import SlimSelect from "slim-select";
+import Quill from 'quill'
 
 up.fragment.config.mainTargets.push('[layout-main]')
 
@@ -33,3 +34,33 @@ up.on('up:fragment:inserted', () => {
   })
 })
 
+up.on('up:fragment:inserted', function() {
+  const editorContainer = document.getElementById('editor');
+  if (editorContainer) {
+    const editor = new Quill('#editor', {
+      modules: {
+        syntax: true,
+        toolbar: [
+          ['bold', 'italic', 'underline', 'link'],
+          ['image'],
+          [{'header': [2, 3, false]}],
+          [{'color': []}, {'background': []}],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          ['code-block'],
+          ['clean']
+        ]
+      },
+      placeholder: 'Contenu de votre article',
+      theme: 'snow'
+    })
+
+    const button = document.querySelector('button[type=submit]')
+    const input = document.querySelector('#content')
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault()
+      input.value = editor.root.innerHTML
+      input.form.submit()
+    })
+  }
+})

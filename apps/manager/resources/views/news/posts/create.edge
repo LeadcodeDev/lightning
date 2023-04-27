@@ -1,0 +1,51 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des actualités',
+      actions: {
+        create: { label: 'Créer une actualité', href: 'manager.news.posts.create' }
+      },
+      tabs: [
+        { label: 'Actualités', href: 'manager.news.posts.index', current: true },
+        { label: 'Tags', href: 'manager.news.tags.index', current: false },
+      ]
+    })
+
+    <div class="py-10">
+      <div class="pb-5">
+        @component('manager::components/ui/heading-1')
+          Nouvelle actualité
+        @end
+      </div>
+
+      @form.container({ method: 'POST', action: route('manager.news.posts.store') })
+        @each(lang in getSupportedLocales())
+          <div class="grid grid-cols-3 gap-5">
+            <input type="hidden" name="{{ `translations.${lang}.locale` }}" value="{{ lang }}">
+            <div class="col-span-2">
+              @!component('components/form/article-editor', { lang: lang })
+            </div>
+            <div class="col-span-1">
+              @!form.input({
+                label: 'Titre',
+                name: `translations.${lang}.title`,
+                required: true
+              })
+
+              @form.select({ label: 'Hashtags', id: 'tags', name: 'tags', multiple: true })
+                @each(tag in tags)
+                  <option value="{{ tag.id }}">
+                    {{ tag.label }}
+                  </option>
+                @end
+              @end
+              <button type="submit">Submit</button>
+            </div>
+          </div>
+        @end
+      @end
+    </div>
+  @end
+@end

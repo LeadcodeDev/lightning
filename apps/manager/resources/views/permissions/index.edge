@@ -3,11 +3,11 @@
 @section('body')
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des permissions',
+      title: t('models.permissions.breadcrumb.label'),
       tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
-        { label: 'Roles', href: 'manager.roles.index', current: false },
-        { label: 'Permissions', href: 'manager.permissions.index', current: true }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: false },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: true }
       ]
     })
 
@@ -18,7 +18,7 @@
         show: 'keywords.permissions.buttons.show'
       },
       fields: [
-        { column: 'label', label: 'Identité', translation: true },
+        { column: 'label', label: t('models.permissions.table.columns.label'), translation: true },
       ]
     })
   @end

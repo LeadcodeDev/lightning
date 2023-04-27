@@ -1,0 +1,7 @@
+breadcrumb:
+  label: Gestion des permissions
+  tab: Permissions
+
+table:
+  columns:
+    label: Nom de la permission

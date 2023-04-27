@@ -9,9 +9,14 @@ import {UserStoreValidator, UserUpdateValidator} from "Apps/manager/validators/U
 import Role from "Domains/users/models/Role";
 
 export default class UsersController {
-  public async index ({ view }: HttpContextContract): Promise<string> {
-    const users: User[] = await User.all()
-    return view.render('manager::views/users/index', { users })
+  public async index ({ view, request }: HttpContextContract): Promise<string> {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 10)
+
+    const users = await User.query()
+      .paginate(page, limit)
+
+    return view.render('manager::views/users/index', { users: users.toJSON() })
   }
 
   public async edit ({ view, params }: HttpContextContract): Promise<string> {

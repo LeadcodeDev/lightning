@@ -1,4 +1,10 @@
-users:
+breadcrumb:
+  label: Gestion des comptes utilisateurs
+  tab: Utilisateurs enregistrés
+  actions:
+    create: Créer un compte
+
+validator:
   username:
     minLength: Le nom d'utilisateur doit comporter au moins {{ options.minLength }} caractères
     maxLength: Le nom d'utilisateur ne doit pas dépasser {{ options.maxLength }} caractères
@@ -8,9 +14,7 @@ users:
     email: Le champ email n'est pas une email valide
     unique: L'email donnée existe déjà dans nos services
 
-roles:
-  label:
-    minLength: Le label doit comporter au moins {{ options.minLength }} caractères
-    maxLength: Le label ne doit pas dépasser {{ options.maxLength }} caractères
-  power:
-    range: Le niveau d'importance du rôle doit-être comprise entre 0 et 100
+table:
+  columns:
+    label: Identité
+    email: Email
