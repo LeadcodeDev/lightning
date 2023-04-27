@@ -1,0 +1,28 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des tags',
+      actions: {
+        create: { label: 'Créer un tag', href: 'manager.news.tags.create' }
+      },
+      tabs: [
+        { label: 'Actualités', href: 'manager.news.posts.index', current: false },
+        { label: 'Tags', href: 'manager.news.tags.index', current: true },
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.news.tags',
+      data: tags,
+      actions: {
+        edit: 'models.news.tags.keywords.buttons.edit',
+        delete: 'models.news.tags.keywords.buttons.delete'
+      },
+      fields: [
+        { column: 'label', label: 'Label' },
+      ]
+    })
+  @end
+@end

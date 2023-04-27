@@ -1,0 +1,36 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des tags',
+      tabs: [
+        { label: 'Actualités', href: 'manager.news.tags.index', current: false },
+        { label: 'Tags', href: 'manager.news.tags.index', current: true },
+      ]
+    })
+
+    <div class="py-10">
+      <div class="pb-5">
+        @component('manager::components/ui/heading-1')
+          Nouveau tag
+        @end
+      </div>
+
+      @form.container({ method: 'POST', action: route('manager.news.tags.store') })
+        @each(lang in getSupportedLocales())
+          <div class="grid grid-cols-3 gap-5">
+            <div class="col-span-1">
+              @!form.input({
+                label: 'Label',
+                name: 'label',
+                required: true
+              })
+              <button type="submit">Submit</button>
+            </div>
+          </div>
+        @end
+      @end
+    </div>
+  @end
+@end
