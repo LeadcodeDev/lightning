@@ -36,6 +36,15 @@ Route.group(() => {
       Route.put('/update/:id', 'PostsController.update').as('manager.news.posts.update')
       Route.delete('/:id', 'PostsController.destroy').as('manager.news.posts.destroy')
     }).prefix('posts')
+
+    Route.group(() => {
+      Route.get('/', 'PostTagsController.index').as('manager.news.tags.index')
+      Route.get('/create', 'PostTagsController.create').as('manager.news.tags.create')
+      Route.post('/', 'PostTagsController.store').as('manager.news.tags.store')
+      Route.get('/edit/:id', 'PostTagsController.edit').as('manager.news.tags.edit')
+      Route.put('/update/:id', 'PostTagsController.update').as('manager.news.tags.update')
+      Route.delete('/:id', 'PostTagsController.destroy').as('manager.news.tags.destroy')
+    }).prefix('tags')
   }).prefix('news')
 
   Route.group(() => {

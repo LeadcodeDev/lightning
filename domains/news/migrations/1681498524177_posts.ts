@@ -30,8 +30,8 @@ export default class extends BaseSchema {
 
     this.schema.createTable('post_post_tag', (table) => {
       table.increments('id')
-      table.string('post_id').references('id').inTable('posts')
-      table.integer('post_tag_id').references('id').inTable('post_tags')
+      table.string('post_id').references('id').inTable('posts').onDelete('CASCADE')
+      table.integer('post_tag_id').references('id').inTable('post_tags').onDelete('CASCADE')
     })
   }
 

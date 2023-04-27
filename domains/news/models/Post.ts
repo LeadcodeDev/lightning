@@ -4,6 +4,7 @@ import {attachment, AttachmentContract} from "@ioc:Adonis/Addons/AttachmentLite"
 import PostTag from "Domains/news/models/PostTag";
 import {randomUUID} from "node:crypto";
 import PostTranslation from "Domains/news/models/PostTranslation";
+import {RequestContract} from "@ioc:Adonis/Core/Request";
 
 export enum PostMode {
   DRAFT = 'draft',
@@ -63,11 +64,23 @@ export default class Post extends BaseModel {
     }
   }
 
+  @computed()
+  public get tagIds (): number[] {
+    return this.tags.map((tag: PostTag) => tag.id)
+  }
+
   @hasMany(() => PostTranslation)
   public translations: HasMany<typeof PostTranslation>
 
   @beforeCreate()
   public static async generateUid(post: Post): Promise<void> {
     post.id = randomUUID()
+  }
+
+  public static async syncTags (post: Post, request: RequestContract): Promise<void> {
+    const roles = request.input('tags', [])
+    if (roles) {
+      await post.related('tags').sync(Array.isArray(roles) ? [...roles] : [roles])
+    }
   }
 }

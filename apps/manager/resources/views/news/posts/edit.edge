@@ -6,6 +6,7 @@
       title: 'Gestion des actualités',
       tabs: [
         { label: 'Actualités', href: 'manager.news.posts.index', current: true },
+        { label: 'Tags', href: 'manager.news.tags.index', current: false },
       ]
     })
 
@@ -16,10 +17,10 @@
             <input type="hidden" name="{{ `translations.${translation.language.code}.id` }}" value="{{ translation.id }}">
             <input type="hidden" name="{{ `translations.${translation.language.code}.locale` }}" value="{{ translation.locale }}">
             <div class="col-span-2">
-              <input type="hidden" name="{{ `translations.${translation.language.code}.content` }}" id="content">
-              <div id="editor" class="article-container lg:!h-[75vh] rounded-md">
-                {{{ translation.content }}}
-              </div>
+              @!component('components/form/article-editor', {
+                lang: translation.language.code,
+                value: translation.content,
+              })
             </div>
             <div class="col-span-1">
               @!form.input({
@@ -28,6 +29,19 @@
                 value: translation.title,
                 required: true
               })
+
+              @form.select({ label: 'Hashtags', id: 'tags', name: 'tags', multiple: true })
+                @each(tag in tags)
+                  <option
+                    value="{{ tag.id }}"
+                    @if(post.tagIds.includes(tag.id))
+                      selected
+                    @end
+                  >
+                    {{ tag.label }}
+                  </option>
+                @end
+              @end
               <button type="submit">Submit</button>
             </div>
           </div>

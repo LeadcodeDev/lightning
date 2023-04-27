@@ -18,9 +18,6 @@ export class I18nPostsLoader implements LoaderContract {
       const rows = await this.database.from('post_translations')
         .innerJoin('languages', 'languages.id', '=','post_translations.language_id')
 
-
-      console.log(rows)
-
       return rows.reduce<Translations>((result, row) => {
         result[row.code] = result[row.code] || {}
 

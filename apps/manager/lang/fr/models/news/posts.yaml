@@ -3,3 +3,7 @@ keywords:
     published: Publié
     waiting_for_publish: En attente
     draft: Brouillon
+  buttons:
+    edit: Modifier
+    new: Nouveau
+    delete: Supprimer

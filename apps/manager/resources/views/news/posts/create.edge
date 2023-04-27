@@ -9,6 +9,7 @@
       },
       tabs: [
         { label: 'Actualités', href: 'manager.news.posts.index', current: true },
+        { label: 'Tags', href: 'manager.news.tags.index', current: false },
       ]
     })
 
@@ -20,13 +21,11 @@
       </div>
 
       @form.container({ method: 'POST', action: route('manager.news.posts.store') })
-      {{ inspect(flashMessages) }}
         @each(lang in getSupportedLocales())
           <div class="grid grid-cols-3 gap-5">
             <input type="hidden" name="{{ `translations.${lang}.locale` }}" value="{{ lang }}">
             <div class="col-span-2">
-              <input type="hidden" name="{{ `translations.${lang}.content` }}" id="content">
-              <div id="editor" class="article-container lg:!h-[75vh] rounded-md"></div>
+              @!component('components/form/article-editor', { lang: lang })
             </div>
             <div class="col-span-1">
               @!form.input({
@@ -34,6 +33,14 @@
                 name: `translations.${lang}.title`,
                 required: true
               })
+
+              @form.select({ label: 'Hashtags', id: 'tags', name: 'tags', multiple: true })
+                @each(tag in tags)
+                  <option value="{{ tag.id }}">
+                    {{ tag.label }}
+                  </option>
+                @end
+              @end
               <button type="submit">Submit</button>
             </div>
           </div>
