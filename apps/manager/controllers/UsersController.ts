@@ -28,7 +28,7 @@ export default class UsersController {
       .with('ManagerUserPolicy')
       .authorize('create')
 
-    const highRole = await User.highRole(auth.user!)
+    const highRole = await User.getHighRole(auth.user!)
     const roles: Role[] = await Role.query()
       .if(auth.user?.isAdmin, (query) => query)
       .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
@@ -68,11 +68,6 @@ export default class UsersController {
   }
 
   public async edit ({ auth, view, params, bouncer }: HttpContextContract): Promise<string> {
-    const highRole = await User.highRole(auth.user!)
-    const roles: Role[] = await Role.query()
-      .if(auth.user?.isAdmin, (query) => query)
-      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
-
     const user: User = await User.query()
       .where('id', params.id)
       .preload('roles')
@@ -82,11 +77,15 @@ export default class UsersController {
       .with('ManagerUserPolicy')
       .authorize('update', user)
 
+    const highRole = await User.getHighRole(auth.user!)
+    const roles: Role[] = await Role.query()
+      .if(auth.user?.isAdmin, (query) => query)
+      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
+
     return view.render('manager::views/users/edit', { user, roles })
   }
 
   public async update ({ request, response, bouncer, params }: HttpContextContract) {
-    const data = await request.validate(UserUpdateValidator)
     const user: User = await User.query()
       .where('id', params.id)
       .firstOrFail()
@@ -94,6 +93,8 @@ export default class UsersController {
     await bouncer
       .with('ManagerUserPolicy')
       .authorize('update', user)
+
+    const data = await request.validate(UserUpdateValidator)
 
     await user.merge(data).save()
     await User.syncRoles(user, request)

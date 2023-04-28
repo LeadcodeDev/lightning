@@ -30,16 +30,18 @@
                 @end
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                   @if(actions?.edit)
-                    <a
-                      href="{{ route(resource + '.edit', [element.id]) }}"
-                      class="text-indigo-600 hover:text-indigo-900"
-                    >
-                      {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
-                    </a>
+                    @can(policy + '.update', element)
+                      <a
+                        href="{{ route(resource + '.edit', [element.id]) }}"
+                        class="text-indigo-600 hover:text-indigo-900"
+                      >
+                        {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
+                      </a>
+                    @end
                   @end
 
                   @if(actions?.show)
-                    @can('ManagerUserPolicy.update', element)
+                    @can(policy + '.view', element)
                       <a
                         href="{{ route(resource + '.show', [element.id]) }}"
                         class="text-indigo-600 hover:text-indigo-900"
@@ -51,7 +53,7 @@
 
                   @if(actions?.delete)
                     @form.container({ method: 'POST', action: route(resource + '.destroy', [element.id]) + '?_method=delete' })
-                      @can('ManagerUserPolicy.delete', element)
+                      @can(policy + '.delete', element)
                         <button
                           type="button"
                           class="text-indigo-600 hover:text-indigo-900"

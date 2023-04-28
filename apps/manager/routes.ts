@@ -55,4 +55,6 @@ Route.group(() => {
       Route.post('/clear', 'WebsiteSettingsController.clearCache').as('manager.settings.clearCache')
     }).prefix('settings')
   }).prefix('website')
-}).namespace('Apps/manager/controllers').prefix('manager')
+}).namespace('Apps/manager/controllers')
+  .prefix('manager')
+  .middleware('auth')
