@@ -6,6 +6,9 @@ users:
   view:
     label: Accès aux utilisateurs
     description: L'utilisateur peut voir les comptes utilisateurs
+  create:
+    label: Création d'utilisateurs
+    description: L'utilisateur peut créer des comptes utilisateurs
   edit:
     label: Edition des utilisateurs
     description: L'utilisateur peut modifier un compte utilisateur
@@ -20,6 +23,9 @@ roles:
   view:
     label: Accès au rôles
     description: L'utilisateur peut voir les roles
+  create:
+    label: Création de rôles
+    description: L'utilisateur peut créer des rôles
   edit:
     label: Edition des rôles
     description: L'utilisateur peut modifier les rôles

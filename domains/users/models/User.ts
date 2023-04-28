@@ -6,6 +6,7 @@ import { randomUUID } from 'node:crypto'
 import Token from "Domains/users/models/Token";
 import Role from "Domains/users/models/Role";
 import { RequestContract } from '@ioc:Adonis/Core/Request'
+import Permission, {PermissionKey} from "Domains/users/models/Permission";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -25,6 +26,9 @@ export default class User extends BaseModel {
 
   @column()
   public hasEmailVerified: boolean = false
+
+  @column()
+  public isAdmin: boolean = false
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -70,5 +74,29 @@ export default class User extends BaseModel {
     if (roles) {
       await user.related('roles').sync(Array.isArray(roles) ? [...roles] : [roles])
     }
+  }
+
+  public static async hasRole (user: User, ...permissions: PermissionKey[]): Promise<boolean> {
+    await user.load('roles', (query) => query.preload('permissions'))
+
+    const permissionKeys = user.roles.flatMap((role: Role) => {
+      return role.permissions.map((permission: Permission) => permission.key)
+    })
+
+    return permissions.some((permission) => {
+      return permissionKeys.includes(permission)
+    })
+  }
+
+  public static async highRole (user: User): Promise<Role> {
+    await user.load('roles')
+
+    return user.roles.reduce((accumulator: Role, role: Role) => {
+      if (role.power > accumulator.power) {
+        accumulator = role
+      }
+
+      return accumulator
+    })
   }
 }

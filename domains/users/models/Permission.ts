@@ -6,11 +6,13 @@ export enum PermissionKey {
   manageAccess = 'manager.access',
 
   userView = 'users.view',
+  userCreate = 'users.create',
   userEdit = 'users.edit',
   userDelete = 'users.delete',
   userManageRole = 'users.roles.manage',
 
   roleView = 'roles.view',
+  roleCreate = 'roles.create',
   roleEdit = 'roles.edit',
   roleDelete = 'roles.delete',
 }

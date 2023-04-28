@@ -9,7 +9,11 @@ import {UserStoreValidator, UserUpdateValidator} from "Apps/manager/validators/U
 import Role from "Domains/users/models/Role";
 
 export default class UsersController {
-  public async index ({ view, request }: HttpContextContract): Promise<string> {
+  public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
+    await bouncer
+      .with('ManagerUserPolicy')
+      .authorize('viewList')
+
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
@@ -19,21 +23,24 @@ export default class UsersController {
     return view.render('manager::views/users/index', { users: users.toJSON() })
   }
 
-  public async edit ({ view, params }: HttpContextContract): Promise<string> {
-    const roles: Role[] = await Role.all()
-    const user: User = await User.query()
-      .where('id', params.id)
-      .preload('roles')
-      .firstOrFail()
+  public async create ({ auth, view, bouncer }: HttpContextContract): Promise<string> {
+    await bouncer
+      .with('ManagerUserPolicy')
+      .authorize('create')
 
-    return view.render('manager::views/users/edit', { user, roles })
+    const highRole = await User.highRole(auth.user!)
+    const roles: Role[] = await Role.query()
+      .if(auth.user?.isAdmin, (query) => query)
+      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
+
+    return view.render('manager::views/users/create', { roles })
   }
 
-  public async create ({ view }: HttpContextContract): Promise<string> {
-    return view.render('manager::views/users/create')
-  }
+  public async store ({ request, bouncer, i18n, response }: HttpContextContract): Promise<void> {
+    await bouncer
+      .with('ManagerUserPolicy')
+      .authorize('create')
 
-  public async store ({ request, i18n, response }: HttpContextContract): Promise<void> {
     const data = await request.validate(UserStoreValidator)
 
     const password: string = randomUUID()
@@ -60,11 +67,33 @@ export default class UsersController {
     return response.redirect().toRoute('manager.users.index')
   }
 
-  public async update ({ request, response, params }: HttpContextContract) {
+  public async edit ({ auth, view, params, bouncer }: HttpContextContract): Promise<string> {
+    const highRole = await User.highRole(auth.user!)
+    const roles: Role[] = await Role.query()
+      .if(auth.user?.isAdmin, (query) => query)
+      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
+
+    const user: User = await User.query()
+      .where('id', params.id)
+      .preload('roles')
+      .firstOrFail()
+
+    await bouncer
+      .with('ManagerUserPolicy')
+      .authorize('update', user)
+
+    return view.render('manager::views/users/edit', { user, roles })
+  }
+
+  public async update ({ request, response, bouncer, params }: HttpContextContract) {
     const data = await request.validate(UserUpdateValidator)
     const user: User = await User.query()
       .where('id', params.id)
       .firstOrFail()
+
+    await bouncer
+      .with('ManagerUserPolicy')
+      .authorize('update', user)
 
     await user.merge(data).save()
     await User.syncRoles(user, request)
