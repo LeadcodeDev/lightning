@@ -14,6 +14,7 @@
     @!component('manager::components/table', {
       resource: 'manager.permissions',
       data: permissions,
+      policy: 'ManagerPermissionPolicy',
       actions: {
         show: 'keywords.permissions.buttons.show'
       },

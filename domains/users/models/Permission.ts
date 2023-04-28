@@ -15,6 +15,8 @@ export enum PermissionKey {
   roleCreate = 'roles.create',
   roleEdit = 'roles.edit',
   roleDelete = 'roles.delete',
+
+  permissionView = 'permissions.view',
 }
 export default class Permission extends BaseModel {
   @column({ isPrimary: true })

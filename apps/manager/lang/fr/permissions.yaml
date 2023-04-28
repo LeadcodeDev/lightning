@@ -32,3 +32,8 @@ roles:
   delete:
     label: Suppression des rôles
     description: L'utilisateur peut supprimer les rôles
+
+permissions:
+  view:
+    label: Accès aux permissions
+    description: L'utilisateur peut voir les permissions

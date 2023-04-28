@@ -18,13 +18,17 @@ export default class extends BaseSchema {
         { id: randomUUID(), key: PermissionKey.manageAccess, label: 'permissions.access_manager.label', description: 'permissions.access_manager.description' },
 
         { id: randomUUID(), key: PermissionKey.userView, label: 'permissions.users.view.label', description: 'permissions.users.view.description' },
+        { id: randomUUID(), key: PermissionKey.userCreate, label: 'permissions.users.create.label', description: 'permissions.users.create.description' },
         { id: randomUUID(), key: PermissionKey.userEdit, label: 'permissions.users.edit.label', description: 'permissions.users.edit.description' },
         { id: randomUUID(), key: PermissionKey.userDelete, label: 'permissions.users.delete.label', description: 'permissions.users.delete.description' },
         { id: randomUUID(), key: PermissionKey.userManageRole, label: 'permissions.users.manage_roles.label', description: 'permissions.users.manage_roles.description' },
 
         { id: randomUUID(), key: PermissionKey.roleView, label: 'permissions.roles.view.label', description: 'permissions.roles.view.description' },
+        { id: randomUUID(), key: PermissionKey.roleCreate, label: 'permissions.roles.create.label', description: 'permissions.roles.create.description' },
         { id: randomUUID(), key: PermissionKey.roleEdit, label: 'permissions.roles.edit.label', description: 'permissions.roles.edit.description' },
         { id: randomUUID(), key: PermissionKey.roleDelete, label: 'permissions.roles.delete.label', description: 'permissions.roles.delete.description' },
+
+        { id: randomUUID(), key: PermissionKey.permissionView, label: 'permissions.permissions.view.label', description: 'permissions.permissions.view.description' },
       ])
     })
   }
