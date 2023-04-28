@@ -16,6 +16,7 @@
     @!component('manager::components/table', {
       resource: 'manager.news.posts',
       data: posts,
+      policy: 'ManagerNews',
       actions: {
         edit: 'keywords.news.posts.buttons.edit',
         delete: 'keywords.news.posts.buttons.delete'

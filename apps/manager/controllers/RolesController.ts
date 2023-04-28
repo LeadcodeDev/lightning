@@ -23,7 +23,8 @@ export default class RolesController {
       .with('ManagerRolePolicy')
       .authorize('create')
 
-    const permissions = await Permission.all()
+    const permissions = await Permission.query()
+      .orderBy('key', 'asc')
 
     return view.render('manager::views/roles/create', { permissions })
   }
@@ -51,7 +52,8 @@ export default class RolesController {
       .with('ManagerRolePolicy')
       .authorize('update', role)
 
-    const permissions = await Permission.all()
+    const permissions = await Permission.query()
+      .orderBy('key', 'asc')
 
     return view.render('manager::views/roles/edit', { role, permissions })
   }

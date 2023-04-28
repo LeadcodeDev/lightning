@@ -24,6 +24,7 @@
     @!component('manager::components/table', {
       resource: 'manager.settings',
       data: settings,
+      policy: 'ManagerSettingGlobalPolicy',
       actions: {
         edit: 'keywords.settings.buttons.edit',
       },

@@ -31,7 +31,7 @@ export default class UsersController {
     const highRole = await User.getHighRole(auth.user!)
     const roles: Role[] = await Role.query()
       .if(auth.user?.isAdmin, (query) => query)
-      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
+      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole?.power || 0))
 
     return view.render('manager::views/users/create', { roles })
   }
@@ -80,7 +80,8 @@ export default class UsersController {
     const highRole = await User.getHighRole(auth.user!)
     const roles: Role[] = await Role.query()
       .if(auth.user?.isAdmin, (query) => query)
-      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole.power))
+      .if(!auth.user?.isAdmin, (query) => query.where('power', '<', highRole?.power || 0))
+      .orderBy('power', 'asc')
 
     return view.render('manager::views/users/edit', { user, roles })
   }

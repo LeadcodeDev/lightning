@@ -37,3 +37,27 @@ permissions:
   view:
     label: Accès aux permissions
     description: L'utilisateur peut voir les permissions
+
+settings:
+  global:
+    view:
+      label: Accès aux settings globales
+      description: L'utilisateur peut voir les configurations du site
+    edit:
+      label: Edition des settings globales
+      description: L'utilisateur peut modifier les configurations du site
+
+news:
+  articles:
+    view:
+      label: Accès aux articles
+      description: L'utilisateur peut voir les articles
+    create:
+      label: Création d'articles
+      description: L'utilisateur peut créer des articles
+    edit:
+      label: Edition des settings globales
+      description: L'utilisateur peut modifier les articles
+    delete:
+      label: Suppression des settings globales
+      description: L'utilisateur peut supprimer les articles

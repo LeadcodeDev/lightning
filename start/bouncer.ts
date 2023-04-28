@@ -56,5 +56,8 @@ export const { actions } = Bouncer
 */
 export const { policies } = Bouncer.registerPolicies({
   ManagerUserPolicy: () => import('Apps/manager/policies/UserPolicy'),
-  ManagerRolePolicy: () => import('Apps/manager/policies/RolePolicy')
+  ManagerRolePolicy: () => import('Apps/manager/policies/RolePolicy'),
+  ManagerPermissionPolicy: () => import('Apps/manager/policies/PermissionPolicy'),
+  ManagerSidebarPolicy: () => import('Apps/manager/policies/SidebarPolicy'),
+  ManagerSettingGlobalPolicy: () => import('Apps/manager/policies/SettingGlobalPolicy')
 })

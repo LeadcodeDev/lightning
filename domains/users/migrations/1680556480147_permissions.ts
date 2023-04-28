@@ -28,6 +28,14 @@ export default class extends BaseSchema {
         { id: randomUUID(), key: PermissionKey.roleEdit, label: 'permissions.roles.edit.label', description: 'permissions.roles.edit.description' },
         { id: randomUUID(), key: PermissionKey.roleDelete, label: 'permissions.roles.delete.label', description: 'permissions.roles.delete.description' },
 
+        { id: randomUUID(), key: PermissionKey.newsArticleView, label: 'permissions.news.articles.view.label', description: 'permissions.news.articles.view.description' },
+        { id: randomUUID(), key: PermissionKey.newsArticleCreate, label: 'permissions.news.articles.create.label', description: 'permissions.news.articles.create.description' },
+        { id: randomUUID(), key: PermissionKey.newsArticleEdit, label: 'permissions.news.articles.edit.label', description: 'permissions.news.articles.edit.description' },
+        { id: randomUUID(), key: PermissionKey.newsArticleDelete, label: 'permissions.news.articles.delete.label', description: 'permissions.news.articles.delete.description' },
+
+        { id: randomUUID(), key: PermissionKey.settingGlobalView, label: 'permissions.settings.global.view.label', description: 'permissions.settings.global.view.description' },
+        { id: randomUUID(), key: PermissionKey.settingGlobalEdit, label: 'permissions.settings.global.edit.label', description: 'permissions.settings.global.edit.description' },
+
         { id: randomUUID(), key: PermissionKey.permissionView, label: 'permissions.permissions.view.label', description: 'permissions.permissions.view.description' },
       ])
     })

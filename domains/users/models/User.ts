@@ -88,8 +88,12 @@ export default class User extends BaseModel {
     })
   }
 
-  public static async getHighRole (user: User): Promise<Role> {
+  public static async getHighRole (user: User): Promise<Role | undefined> {
     await user.load('roles')
+
+    if (!user.roles.length) {
+      return
+    }
 
     return user.roles.reduce((accumulator: Role, role: Role) => {
       if (role.power > accumulator.power) {
