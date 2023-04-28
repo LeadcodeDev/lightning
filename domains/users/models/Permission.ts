@@ -18,14 +18,13 @@ export enum PermissionKey {
 
   settingGlobalView = 'settings.global.view',
   settingGlobalEdit = 'settings.global.edit',
-  settingGlobalDelete = 'settings.global.delete',
 
   permissionView = 'permissions.view',
 
-  newsArticleView = 'news.articles.view',
-  newsArticleCreate = 'news.articles.create',
-  newsArticleEdit = 'news.articles.edit',
-  newsArticleDelete = 'news.articles.delete',
+  newsPostView = 'news.articles.view',
+  newsPostCreate = 'news.articles.create',
+  newsPostEdit = 'news.articles.edit',
+  newsPostDelete = 'news.articles.delete',
 }
 export default class Permission extends BaseModel {
   @column({ isPrimary: true })

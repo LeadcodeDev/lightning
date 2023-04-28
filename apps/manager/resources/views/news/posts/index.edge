@@ -16,10 +16,10 @@
     @!component('manager::components/table', {
       resource: 'manager.news.posts',
       data: posts,
-      policy: 'ManagerNews',
+      policy: 'ManagerNewsPostPolicy',
       actions: {
-        edit: 'keywords.news.posts.buttons.edit',
-        delete: 'keywords.news.posts.buttons.delete'
+        edit: 'models.news.posts.table.buttons.edit',
+        delete: 'models.news.posts.table.buttons.delete'
       },
       fields: [
         { column: 'title', label: 'Intitulé de l\'actualité', translation: true },

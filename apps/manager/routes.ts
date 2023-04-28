@@ -58,3 +58,10 @@ Route.group(() => {
 }).namespace('Apps/manager/controllers')
   .prefix('manager')
   .middleware('auth')
+  .middleware(async ({ bouncer }, next) => {
+    await bouncer
+      .with('ManagerPolicy')
+      .authorize('viewDashboard')
+
+    await next()
+  })
