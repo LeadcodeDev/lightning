@@ -8,6 +8,9 @@ keywords:
     new: Nouveau
     delete: Supprimer
 
+breadcrumb:
+  tab: Articles
+
 table:
   buttons:
     edit: Modifier

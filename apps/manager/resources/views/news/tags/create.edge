@@ -5,8 +5,8 @@
     @!component('manager::components/tab', {
       title: 'Gestion des tags',
       tabs: [
-        { label: 'Actualités', href: 'manager.news.tags.index', current: false },
-        { label: 'Tags', href: 'manager.news.tags.index', current: true },
+        { label: t('models.news.posts.breadcrumb.tab'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: false },
+        { label: t('models.news.tags.breadcrumb.tab'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: true },
       ]
     })
 

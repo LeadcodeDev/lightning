@@ -25,6 +25,10 @@ table:
     label: Nom du paramètre
     value: Valeur du paramètre
 
+breadcrumb:
+  global:
+    tab: Paramètres du site
+
 policies:
   global:
     view:

@@ -1,3 +1,6 @@
+breadcrumb:
+  tab: HashTags
+
 table:
   buttons:
     edit: Modifier

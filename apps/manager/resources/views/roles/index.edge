@@ -8,9 +8,9 @@
         create: { label: t('models.roles.breadcrumb.actions.create'), href: 'manager.roles.create' }
       },
       tabs: [
-        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: false },
-        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: true },
-        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: false }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: true },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
       ]
     })
 
