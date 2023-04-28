@@ -1,12 +1,13 @@
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
-import Post from "Domains/news/models/Post";
-import PostValidator from "Apps/manager/validators/PostValidator";
-import PostTranslation from "Domains/news/models/PostTranslation";
 import PostTag from "Domains/news/models/PostTag";
 import PostTagValidator from "Apps/manager/validators/PostTagValidator";
 
 export default class PostTagsController {
-  public async index ({ view, request }: HttpContextContract): Promise<string> {
+  public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('viewList')
+
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
@@ -16,41 +17,60 @@ export default class PostTagsController {
     return view.render('manager::views/news/tags/index', { tags: tags.toJSON() })
   }
 
-  public async create ({ view }: HttpContextContract): Promise<string> {
+  public async create ({ view, bouncer }: HttpContextContract): Promise<string> {
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('create')
+
     return view.render('manager::views/news/tags/create')
   }
 
-  public async store ({ request, response }: HttpContextContract): Promise<void> {
+  public async store ({ request, response, bouncer }: HttpContextContract): Promise<void> {
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('create')
+
     const data = await request.validate(PostTagValidator)
     await PostTag.create(data)
 
     return response.redirect().toRoute('manager.news.tags.index')
   }
 
-  public async edit ({ view, params }: HttpContextContract): Promise<string> {
-    const post: Post = await Post.query()
-      .where('id', params.id)
-      .preload('translations', (query) => query.preload('language'))
-      .preload('tags')
-      .firstOrFail()
-
-    return view.render('manager::views/news/tags/edit', { post })
-  }
-
-  public async update ({ request, response, params }: HttpContextContract) {
-    const data = await request.validate(PostValidator)
-    const post: Post = await Post.query()
+  public async edit ({ view, params, bouncer }: HttpContextContract): Promise<string> {
+    const tag: PostTag = await PostTag.query()
       .where('id', params.id)
       .firstOrFail()
 
-    await PostTranslation.synchronize(post, data.translations)
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('update', tag)
 
-    return response.redirect().toRoute('manager.news.posts.index')
+    return view.render('manager::views/news/tags/edit', { tag })
   }
 
-  public async destroy ({ response, params }: HttpContextContract): Promise<void> {
-    const post: Post = await Post.findOrFail(params.id)
-    await post.delete()
+  public async update ({ request, response, params, bouncer }: HttpContextContract) {
+    const tag: PostTag = await PostTag.query()
+      .where('id', params.id)
+      .firstOrFail()
+
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('update', tag)
+
+    const data = await request.validate(PostTagValidator)
+    await tag.merge(data).save()
+
+    return response.redirect().toRoute('manager.news.tags.index')
+  }
+
+  public async destroy ({ response, params, bouncer }: HttpContextContract): Promise<void> {
+    const tag: PostTag = await PostTag.findOrFail(params.id)
+
+    await bouncer
+      .with('ManagerNewsTagPolicy')
+      .authorize('delete', tag)
+
+    await tag.delete()
 
     response.redirect().back()
   }

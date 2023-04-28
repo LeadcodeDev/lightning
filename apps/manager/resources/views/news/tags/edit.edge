@@ -5,27 +5,20 @@
     @!component('manager::components/tab', {
       title: 'Gestion des actualités',
       tabs: [
-        { label: 'Actualités', href: 'manager.news.posts.index', current: true },
+        { label: 'Actualités', href: 'manager.news.tags.index', current: false },
+        { label: 'Tags', href: 'manager.news.tags.index', current: true },
       ]
     })
 
     <div class="py-10">
-      @form.container({ method: 'POST', action: route('manager.news.posts.update', [post.id]) + '?_method=PUT' })
-        @each(translation in post.translations)
+      @form.container({ method: 'POST', action: route('manager.news.tags.update', [tag.id]) + '?_method=PUT' })
+        @each(lang in getSupportedLocales())
           <div class="grid grid-cols-3 gap-5">
-            <input type="hidden" name="{{ `translations.${translation.language.code}.id` }}" value="{{ translation.id }}">
-            <input type="hidden" name="{{ `translations.${translation.language.code}.locale` }}" value="{{ translation.locale }}">
-            <div class="col-span-2">
-              @!component('components/form/article-editor', {
-                lang: translation.language.code,
-                value: translation.content,
-              })
-            </div>
             <div class="col-span-1">
               @!form.input({
-                label: 'Titre',
-                name: `translations.${translation.language.code}.title`,
-                value: translation.title,
+                label: 'Label',
+                name: 'label',
+                value: tag.label,
                 required: true
               })
               <button type="submit">Submit</button>

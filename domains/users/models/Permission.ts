@@ -25,6 +25,11 @@ export enum PermissionKey {
   newsPostCreate = 'news.articles.create',
   newsPostEdit = 'news.articles.edit',
   newsPostDelete = 'news.articles.delete',
+
+  newsTagView = 'news.tags.view',
+  newsTagCreate = 'news.tags.create',
+  newsTagEdit = 'news.tags.edit',
+  newsTagDelete = 'news.tags.delete',
 }
 export default class Permission extends BaseModel {
   @column({ isPrimary: true })
