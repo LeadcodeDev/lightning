@@ -18,6 +18,7 @@ export default class UsersController {
     const limit = request.input('limit', 10)
 
     const users = await User.query()
+      .preload('roles')
       .paginate(page, limit)
 
     return view.render('manager::views/users/index', { users: users.toJSON() })

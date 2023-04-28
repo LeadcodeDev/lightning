@@ -5,9 +5,9 @@
     @!component('manager::components/tab', {
       title: 'Gestion des comptes utilisateurs',
       tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', current: false },
-        { label: 'Roles', href: 'manager.roles.index', current: false },
-        { label: 'Permissions', href: 'manager.users.index', current: true }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: true },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
       ]
     })
 

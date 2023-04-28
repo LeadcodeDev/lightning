@@ -21,6 +21,9 @@ table:
   columns:
     label: Identité
     email: Email
+    roles: Rôles
+    created_at: Créé le
+    updated_at: Modifié le
 
 policies:
   view:

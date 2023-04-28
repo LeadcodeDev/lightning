@@ -30,7 +30,10 @@ export default class User extends BaseModel {
   @column()
   public isAdmin: boolean = false
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({
+    autoCreate: true,
+    consume: (value: string) => DateTime.fromJSDate(new Date(value)),
+  })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })

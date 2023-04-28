@@ -23,7 +23,26 @@
       },
       fields: [
         { column: 'username', label: t('models.users.table.columns.label') },
-        { column: 'email', label: t('models.users.table.columns.email') }
+        { column: 'email', label: t('models.users.table.columns.email') },
+        {
+          column: 'roles',
+          label: t('models.users.table.columns.roles'),
+          reducer: (roles) => {
+            return roles
+              .map((role) => `<a href="${route('manager.roles.edit', [role.id])}" class="bg-blue-100 text-blue-500 px-3 py-0.5 rounded-full">${role.label}</a>`)
+              .join('')
+          },
+        },
+        {
+          column: 'updatedAt',
+          label: t('models.users.table.columns.updated_at'),
+          reducer: (date) => date.toFormat('dd/MM/yyyy')
+        },
+        {
+          column: 'createdAt',
+          label: t('models.users.table.columns.created_at'),
+          reducer: (date) => date.toFormat('dd/MM/yyyy')
+        },
       ]
     })
   @end
