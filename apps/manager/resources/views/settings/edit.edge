@@ -22,7 +22,7 @@
           @if(setting.mode == 'image')
           <label for="picture">
             @if(setting.picture)
-              <img src="{{ setting.picture?.url }}" class="w-20" />
+              <img src="{{ setting.picture.urls.breakpoints.thumbnail.url }}" />
             @end
             <input type="file" id="picture" name="picture" />
           </label>

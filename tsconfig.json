@@ -48,7 +48,8 @@
       "@adonisjs/redis",
       "@adonisjs/attachment-lite",
       "@adonisjs/lucid-slugify",
-      "@adonisjs/bouncer"
+      "@adonisjs/bouncer",
+      "adonis-responsive-attachment"
     ]
   }
 }

@@ -1,9 +1,9 @@
-import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import WebsiteSetting from 'Domains/website/models/WebsiteSetting'
-import {rules} from '@adonisjs/validator/build/src/Rules'
+import { rules } from '@adonisjs/validator/build/src/Rules'
 import Redis from '@ioc:Adonis/Addons/Redis'
-import {Attachment} from "@adonisjs/attachment-lite/build/src/Attachment";
+import { ResponsiveAttachment } from "adonis-responsive-attachment/build/src/Attachment";
 
 export default class WebsiteSettingsController {
   public async index ({ view, request }: HttpContextContract): Promise<string> {
@@ -44,7 +44,7 @@ export default class WebsiteSettingsController {
         return data.picture.errors
       }
 
-      setting.picture = Attachment.fromFile(data.picture)
+      setting.picture = await ResponsiveAttachment.fromFile(data.picture)
       await setting.save()
     } else {
       await setting.merge({ value: data.value }).save()
