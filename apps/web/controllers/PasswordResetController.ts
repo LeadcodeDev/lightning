@@ -34,15 +34,6 @@ export default class PasswordResetController {
       )
 
       await email.sendLater()
-
-      // await Mail.sendLater((message) => {
-      //   message
-      //     .from('noreply@leadcode.fr')
-      //     .to(user.email)
-      //     .subject(i18n.formatMessage('emails.reset_password.subject'))
-      //     .html(i18n.formatMessage('emails.reset_password.html', { url: Env.get('DOMAIN') + resetLink }))
-      //   }
-      // )
     }
 
     session.flash(

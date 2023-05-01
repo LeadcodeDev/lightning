@@ -1,0 +1,8 @@
+subject: Activation de votre compte utilisateur
+welcome: Bienvenue sur {name}
+hello: Bonjour {username},
+body: Nous sommes ravis que vous ayez créé un compte sur notre site internet. Avant de pouvoir accéder à l'ensemble des fonctionnalités de notre plateforme, vous devez activer votre compte en cliquant sur le lien ci-dessous
+button: Activer mon compte
+warning: Nous vous rappelons que toutes les informations que vous avez fournies lors de la création de votre compte sont confidentielles et que nous ne les partagerons jamais avec des tiers.
+thanks: Nous vous remercions de votre confiance et sommes impatients de vous voir utiliser notre plateforme.
+copyright: © {name}. Tous droits réservés.

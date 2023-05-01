@@ -37,26 +37,13 @@
       <mj-section background-color="#ffffff" padding-left="15px" padding-right="15px">
         <mj-column width="100%">
           <mj-text color="#212b35" font-weight="bold" font-size="20px">
-            {{ t('emails.new_account_from_administrator.welcome', { name: site_name }) }}
+            {{ t('emails.activate_account.welcome', { name: site_name }) }}
           </mj-text>
           <mj-text color="#637381" font-size="16px">
-            {{ t('emails.new_account_from_administrator.hello', { username }) }}
+            {{ t('emails.activate_account.hello', { username }) }}
           </mj-text>
           <mj-text color="#637381" font-size="16px">
-            {{ t('emails.new_account_from_administrator.paragraphs.account_origin') }}
-          </mj-text>
-          <mj-text color="#637381" font-size="16px">
-            {{ t('emails.new_account_from_administrator.paragraphs.current_ids') }}
-            <ul>
-              <li style="padding-bottom: 10px">{{ t('emails.new_account_from_administrator.keywords.ids') }} : {{ email }}</li>
-              <li style="padding-bottom: 10px">{{ t('emails.new_account_from_administrator.keywords.password') }} : {{ password }}</li>
-            </ul>
-          </mj-text>
-          <mj-text color="#637381" font-size="16px">
-            {{ t('emails.new_account_from_administrator.paragraphs.usage_warning') }}
-          </mj-text>
-          <mj-text color="#637381" font-size="16px">
-            {{ t('emails.new_account_from_administrator.paragraphs.confirm_email') }}
+            {{ t('emails.activate_account.body') }}
           </mj-text>
           <mj-button
             background-color="#5e6ebf"
@@ -67,8 +54,14 @@
             href="{{ activeUrl }}"
             width="300px"
           >
-            {{ t('emails.new_account_from_administrator.buttons.verify') }}
+            {{ t('emails.activate_account.button') }}
           </mj-button>
+          <mj-text color="#637381" font-size="16px">
+            {{ t('emails.activate_account.warning') }}
+          </mj-text>
+          <mj-text color="#637381" font-size="16px">
+            {{ t('emails.activate_account.thanks') }}
+          </mj-text>
         </mj-column>
       </mj-section>
     </mj-wrapper>
@@ -92,7 +85,7 @@
           </mj-social>
 
           <mj-text color="#445566" font-size="11px" align="center" line-height="16px">
-            {{ t('emails.new_account_from_administrator.copyright', { name: site_name }) }}
+            {{ t('emails.activate_account.copyright', { name: site_name }) }}
           </mj-text>
         </mj-column>
       </mj-section>

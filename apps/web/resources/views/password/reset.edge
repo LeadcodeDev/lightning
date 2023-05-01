@@ -5,7 +5,6 @@
   <h1>Reset your password</h1>
 
   @if (isValid)
-    <p>Enter your email below, and we'll send you a password reset link</p>
     @form.container({ method: 'POST', action: route('password.store') })
       @!form.input({ label: 'Token', type: 'hidden', name: 'token', value: token })
       @!form.input({ label: 'Password', type: 'password', name: 'password', value: password, placeholder: 'Enter your new password' })
