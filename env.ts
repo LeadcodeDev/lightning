@@ -31,6 +31,7 @@ export default Env.rules({
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
 
+  EMAIL_ADDRESS: Env.schema.string({ format: 'email' }),
   SMTP_HOST: Env.schema.string({ format: 'host' }),
   SMTP_PORT: Env.schema.number(),
   SMTP_USERNAME: Env.schema.string(),

@@ -20,7 +20,7 @@ export default class extends BaseSchema {
 
     this.defer(async (database) => {
       await database.table(this.tableName).multiInsert([
-        { key: WebsiteSettingKey.title, label: 'models.website.settings.title.label', description: 'models.website.settings.title.description', value: 'Lightning', mode: 'text' },
+        { key: WebsiteSettingKey.siteName, label: 'models.website.settings.title.label', description: 'models.website.settings.title.description', value: 'Lightning', mode: 'text' },
         { key: WebsiteSettingKey.description, label: 'models.website.settings.description.label', description: 'models.website.settings.description.description', mode: 'text' },
         { key: WebsiteSettingKey.logo, label: 'models.website.settings.logo.label', description: 'models.website.settings.logo.description', mode: 'image' },
         { key: WebsiteSettingKey.image, label: 'models.website.settings.image.label', description: 'models.website.settings.image.description', mode: 'image' },

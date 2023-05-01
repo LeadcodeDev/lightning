@@ -2,11 +2,12 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import User from "Domains/users/models/User";
 import Token from "Domains/users/models/Token";
 import Route from "@ioc:Adonis/Core/Route";
-import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import { randomUUID } from 'node:crypto'
 import {UserStoreValidator, UserUpdateValidator} from "Apps/manager/validators/UserValidator";
 import Role from "Domains/users/models/Role";
+import SendNewAccountPassword from "Apps/manager/mails/SendNewAccountPassword";
+import DefaultEmailSettings from "App/Mailers/DefaultEmailSettings";
 
 export default class UsersController {
   public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
@@ -37,7 +38,7 @@ export default class UsersController {
     return view.render('manager::views/users/create', { roles })
   }
 
-  public async store ({ request, bouncer, i18n, response }: HttpContextContract): Promise<void> {
+  public async store ({ request, bouncer, response }: HttpContextContract): Promise<void> {
     await bouncer
       .with('ManagerUserPolicy')
       .authorize('create')
@@ -49,21 +50,9 @@ export default class UsersController {
     const token: string = await Token.generateVerifyEmailToken(user)
     const activeEmailLink: string = Route.makeUrl('verify.email.verify', [token])
 
-    await Mail.sendLater((message) => {
-      message
-        .from('noreply@leadcode.fr')
-        .to(user.email)
-        .subject(i18n.formatMessage('emails.new_account_give_password.subject'))
-        .html(i18n.formatMessage('emails.new_account_give_password.html', { email: data.email, password }))
-    })
-
-    await Mail.sendLater((message) => {
-      message
-        .from('noreply@leadcode.fr')
-        .to(user.email)
-        .subject(i18n.formatMessage('emails.active_account.subject'))
-        .html(i18n.formatMessage('emails.active_account.html', { url: Env.get('DOMAIN') + activeEmailLink }))
-    })
+    const emailSettings = await new DefaultEmailSettings().get()
+    await new SendNewAccountPassword(emailSettings, user, password, Env.get('DOMAIN') + activeEmailLink)
+      .sendLater()
 
     return response.redirect().toRoute('manager.users.index')
   }

@@ -3,7 +3,7 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
 export enum WebsiteSettingKey {
-  title = 'title',
+  siteName = 'site_name',
   description = 'description',
   logo = 'logo',
   image = 'image',
