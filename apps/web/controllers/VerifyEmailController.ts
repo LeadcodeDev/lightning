@@ -3,7 +3,7 @@ import Token from "Domains/users/models/Token";
 
 export default class VerifyEmailController {
   public async index ({ view }: HttpContextContract): Promise<string> {
-    return view.render('web::views/emails/verify')
+    return view.render('web::views/verify')
   }
 
   public async verify ({ response, session, params, auth }: HttpContextContract): Promise<void> {

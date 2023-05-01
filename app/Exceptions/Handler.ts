@@ -18,6 +18,8 @@ import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 
 export default class ExceptionHandler extends HttpExceptionHandler {
+  protected disableStatusPagesInDevelopment = true
+
   protected statusPages = {
     '403': 'errors/unauthorized',
     '404': 'errors/not-found',
@@ -29,6 +31,10 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
+    if (error.code === 'E_VALIDATION_FAILURE') {
+      ctx.unpoly.setTarget(ctx.unpoly.getFailTarget())
+    }
+
     return super.handle(error, ctx)
   }
 }

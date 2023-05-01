@@ -19,7 +19,9 @@
       <label for="current-tab" class="sr-only">Select a tab</label>
       <select id="current-tab" name="current-tab" class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
         @each(tab in tabs)
-          <option>{{ tab.label }}</option>
+          @can(tab.policy)
+            <option>{{ tab.label }}</option>
+          @end
         @end
       </select>
     </div>
@@ -27,20 +29,22 @@
     <div class="hidden sm:block">
       <nav class="-mb-px flex space-x-8">
         @each(tab in tabs)
-          @if(tab.current)
-            <a
-              href="{{ route(tab.href) }}"
-              class="border-indigo-500 text-indigo-600 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium"
-            >
-              {{ tab.label }}
-            </a>
-          @else
-            <a
-              href="{{ route(tab.href) }}"
-              class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium"
-            >
-              {{ tab.label }}
-            </a>
+          @can(tab.policy)
+            @if(tab.current)
+              <a
+                href="{{ route(tab.href) }}"
+                class="border-indigo-500 text-indigo-600 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium"
+              >
+                {{ tab.label }}
+              </a>
+            @else
+              <a
+                href="{{ route(tab.href) }}"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium"
+              >
+                {{ tab.label }}
+              </a>
+            @end
           @end
         @end
       </nav>

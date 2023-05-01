@@ -1,0 +1,4 @@
+policies:
+  access:
+    label: Accès au manager
+    description: L'utilisateur peut accéder et naviguer dans le manager

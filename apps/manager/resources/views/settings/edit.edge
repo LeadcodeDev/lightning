@@ -5,7 +5,7 @@
     @!component('manager::components/tab', {
       title: 'Gestion des configurations du site',
       tabs: [
-        { label: 'Configuration globales', href: 'manager.settings.index', current: true },
+        { label: t('models.website.settings.breadcrumb.global.tab'), href: 'manager.settings.index', policy: 'ManagerSettingGlobalPolicy.viewList', current: true },
       ]
     })
 

@@ -1,5 +1,7 @@
-keywords:
+breadcrumb:
+  tab: HashTags
+
+table:
   buttons:
-    edit: Modifier le hashtag
-    new: Nouveau le hashtag
-    delete: Supprimer le hashtag
+    edit: Modifier
+    delete: Supprimer

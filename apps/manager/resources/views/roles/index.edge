@@ -8,18 +8,19 @@
         create: { label: t('models.roles.breadcrumb.actions.create'), href: 'manager.roles.create' }
       },
       tabs: [
-        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: false },
-        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: true },
-        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: false }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: true },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
       ]
     })
 
     @!component('manager::components/table', {
       resource: 'manager.roles',
       data: roles,
+      policy: 'ManagerRolePolicy',
       actions: {
-        edit: 'keywords.roles.buttons.edit',
-        delete: 'keywords.roles.buttons.delete'
+        edit: 'models.roles.table.buttons.edit',
+        delete: 'models.roles.table.buttons.delete'
       },
       fields: [
         { column: 'label', label: t('models.roles.table.columns.label') },

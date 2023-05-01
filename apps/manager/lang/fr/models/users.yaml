@@ -15,6 +15,29 @@ validator:
     unique: L'email donnée existe déjà dans nos services
 
 table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
   columns:
     label: Identité
     email: Email
+    roles: Rôles
+    created_at: Créé le
+    updated_at: Modifié le
+
+policies:
+  view:
+    label: Voir les utilisateurs
+    description: Pouvoir voir les utilisateurs
+  create:
+    label: Créer des utilisateurs
+    description: Pouvoir créer des utilisateurs
+  edit:
+    label: Modifier des utilisateurs
+    description: Pouvoir modifier des utilisateurs
+  delete:
+    label: Supprimer des utilisateurs
+    description: Pouvoir supprimer des utilisateurs
+  manage_roles:
+    label: Gérer les rôles
+    description: Pouvoir gérer les rôles des utilisateurs

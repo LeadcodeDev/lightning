@@ -8,17 +8,18 @@
         create: { label: 'Créer un tag', href: 'manager.news.tags.create' }
       },
       tabs: [
-        { label: 'Actualités', href: 'manager.news.posts.index', current: false },
-        { label: 'Tags', href: 'manager.news.tags.index', current: true },
+        { label: t('models.news.posts.breadcrumb.tab'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: false },
+        { label: t('models.news.tags.breadcrumb.tab'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: true },
       ]
     })
 
     @!component('manager::components/table', {
       resource: 'manager.news.tags',
       data: tags,
+      policy: 'ManagerNewsTagPolicy',
       actions: {
-        edit: 'models.news.tags.keywords.buttons.edit',
-        delete: 'models.news.tags.keywords.buttons.delete'
+        edit: 'models.news.tags.table.buttons.edit',
+        delete: 'models.news.tags.table.buttons.delete'
       },
       fields: [
         { column: 'label', label: 'Label' },

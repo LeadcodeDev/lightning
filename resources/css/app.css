@@ -12,8 +12,12 @@ html, body {
   @apply py-2;
 }
 
+.ss-main .ss-values {
+  @apply py-2;
+}
+
 .ss-main .ss-values .ss-value {
-  @apply bg-purple-500 py-0.5;
+  @apply bg-blue-500 px-2 py-0.5 rounded-full;
 }
 
 .ss-content .ss-list {
@@ -25,5 +29,10 @@ html, body {
 }
 
 .ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected {
-  @apply bg-gray-100 text-gray-800 rounded-md;
+  @apply relative flex justify-between bg-gray-100 text-gray-800 rounded-md;
+}
+
+.ss-content .ss-list .ss-option:not(.ss-disabled).ss-selected:after {
+  content: '✔';
+  @apply text-green-500;
 }

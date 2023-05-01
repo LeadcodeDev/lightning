@@ -20,11 +20,11 @@ export default class extends BaseSchema {
 
     this.defer(async (database) => {
       await database.table(this.tableName).multiInsert([
-        { key: WebsiteSettingKey.title, label: 'settings.title.label', description: 'settings.title.description', value: 'Lightning', mode: 'text' },
-        { key: WebsiteSettingKey.description, label: 'settings.description.label', description: 'settings.description.description', mode: 'text' },
-        { key: WebsiteSettingKey.logo, label: 'settings.logo.label', description: 'settings.logo.description', mode: 'image' },
-        { key: WebsiteSettingKey.image, label: 'settings.image.label', description: 'settings.image.description', mode: 'image' },
-        { key: WebsiteSettingKey.favicon, label: 'settings.favicon.label', description: 'settings.favicon.description', mode: 'image' },
+        { key: WebsiteSettingKey.siteName, label: 'models.website.settings.title.label', description: 'models.website.settings.title.description', value: 'Lightning', mode: 'text' },
+        { key: WebsiteSettingKey.description, label: 'models.website.settings.description.label', description: 'models.website.settings.description.description', mode: 'text' },
+        { key: WebsiteSettingKey.logo, label: 'models.website.settings.logo.label', description: 'models.website.settings.logo.description', mode: 'image' },
+        { key: WebsiteSettingKey.image, label: 'models.website.settings.image.label', description: 'models.website.settings.image.description', mode: 'image' },
+        { key: WebsiteSettingKey.favicon, label: 'models.website.settings.favicon.label', description: 'models.website.settings.favicon.description', mode: 'image' },
       ])
     })
   }

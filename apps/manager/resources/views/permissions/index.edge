@@ -5,17 +5,18 @@
     @!component('manager::components/tab', {
       title: t('models.permissions.breadcrumb.label'),
       tabs: [
-        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', current: false },
-        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', current: false },
-        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', current: true }
+        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
+        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
+        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: true }
       ]
     })
 
     @!component('manager::components/table', {
       resource: 'manager.permissions',
       data: permissions,
+      policy: 'ManagerPermissionPolicy',
       actions: {
-        show: 'keywords.permissions.buttons.show'
+        show: 'models.permissions.table.buttons.show'
       },
       fields: [
         { column: 'label', label: t('models.permissions.table.columns.label'), translation: true },

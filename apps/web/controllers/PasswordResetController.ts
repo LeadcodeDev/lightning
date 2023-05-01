@@ -1,11 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Mail from '@ioc:Adonis/Addons/Mail'
 import Route from '@ioc:Adonis/Core/Route'
 import Env from '@ioc:Adonis/Core/Env'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import {rules} from "@adonisjs/validator/build/src/Rules";
 import User from "Domains/users/models/User";
 import Token from "Domains/users/models/Token";
+import ResetPassword from "Apps/web/mails/ResetPassword";
+import DefaultEmailSettings from "App/Mailers/DefaultEmailSettings";
 
 export default class PasswordResetController {
   public async forgot ({ view }: HttpContextContract): Promise<string> {
@@ -24,14 +25,15 @@ export default class PasswordResetController {
     const resetLink = Route.makeUrl('password.reset', [token])
 
     if (user) {
-      await Mail.sendLater((message) => {
-        message
-          .from('noreply@leadcode.fr')
-          .to(user.email)
-          .subject(i18n.formatMessage('emails.reset_password.subject'))
-          .html(i18n.formatMessage('emails.reset_password.html', { url: Env.get('DOMAIN') + resetLink }))
-        }
+      const emailSettings = await new DefaultEmailSettings().get()
+      const email = new ResetPassword(
+        emailSettings,
+        user,
+        Env.get('DOMAIN') + resetLink,
+        i18n.formatMessage('emails.reset_password.subject')
       )
+
+      await email.sendLater()
     }
 
     session.flash(

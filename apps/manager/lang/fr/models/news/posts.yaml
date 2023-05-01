@@ -7,3 +7,30 @@ keywords:
     edit: Modifier
     new: Nouveau
     delete: Supprimer
+
+breadcrumb:
+  tab: Articles
+
+table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
+  columns:
+    title: Titre
+    state: État
+    created_at: Créé le
+    updated_at: Modifié le
+
+policies:
+  view:
+    label: Voir les articles
+    description: Pouvoir voir les articles
+  create:
+    label: Créer des articles
+    description: Pouvoir créer des articles
+  edit:
+    label: Modifier des articles
+    description: Pouvoir modifier des articles
+  delete:
+    label: Supprimer des articles
+    description: Pouvoir supprimer des articles

@@ -1,0 +1,13 @@
+hello: Bonjour {username}
+welcome: Bienvenue sur {name}
+buttons:
+  verify: Vérifier mon adresse e-mail
+keywords:
+  ids: Identifiant
+  password: Mot de passe
+paragraphs:
+  account_origin: Votre compte a été créé par un administrateur, ce qui signifie que nous avons déjà pris les mesures nécessaires pour assurer la sécurité de vos informations.
+  current_ids: Vos identifiants actuels sont les suivants.
+  usage_warning: Cependant, pour pouvoir continuer à utiliser toutes les fonctionnalités de notre site, il est important que vous confirmiez votre adresse e-mail et que vous changiez de mot de passe.
+  confirm_email: Nous vous avons envoyé un e-mail contenant un lien de confirmation. Veuillez cliquer sur ce lien pour vérifier votre adresse e-mail. Si vous rencontrez des difficultés pour confirmer votre adresse e-mail, n'hésitez pas à contacter notre équipe d'assistance.
+copyright: "© {name}. Tous droits réservés."
