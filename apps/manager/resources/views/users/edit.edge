@@ -16,12 +16,20 @@
 
   @component('manager::components/container')
     @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
+    <div class="flex gap-5">
       @!form.input({
-        label: 'Username',
-        name: 'username',
-        value: user.username,
-        required: true
+        label: 'Prénom',
+        name: 'firstname',
+        required: true,
+        value: user.firstname
       })
+      @!form.input({
+        label: 'Nom',
+        name: 'lastname',
+        required: true,
+        value: user.lastname
+      })
+    </div>
 
       @!form.input({
         label: 'Email',
@@ -42,7 +50,16 @@
           </option>
         @end
       @end
-      <button type="submit">Submit</button>
+      <div class="pb-10">
+        @!component('components/form/image_uploader', {
+          value: user.avatar?.urls.breakpoints.small.url,
+          exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
+          name: 'avatar',
+          label: 'Avatar'
+        })
+      </div>
+
+      @!form.submit({ label: 'ui.buttons.save' })
     @end
   @end
 @end

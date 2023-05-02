@@ -1,0 +1,39 @@
+@set('exts', $props.get('exts', 'image/*'))
+
+<div x-data="imageUploader">
+  <div class="mb-2">
+    <div>
+      {{ label }}
+    </div>
+    <div>
+      <template x-if="imageUrl">
+        <img :src="imageUrl" class="object-cover rounded border border-gray-200" style="width: 100px; height: 100px;" />
+      </template>
+
+      <!-- Show the gray box when image is not available -->
+      <template x-if="!imageUrl">
+        @if(value)
+        <img
+          src="{{ value }}"
+          class="border rounded border-gray-200 bg-gray-100"
+          style="width: 100px; height: 100px;"
+        />
+        @else
+        <div
+          class="border rounded border-gray-200 bg-gray-100"
+          style="width: 100px; height: 100px;"
+        ></div>
+        @end
+      </template>
+    </div>
+    <div>
+      <input
+        name="{{ name }}"
+        class="mt-2"
+        type="file"
+        accept="{{ exts }}"
+        @change="fileChosen"
+      />
+    </div>
+  </div>
+</div>
