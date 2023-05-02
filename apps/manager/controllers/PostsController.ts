@@ -14,7 +14,12 @@ export default class PostsController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
+    const search = request.input('search')
     const posts = await Post.query()
+      .if(search, (query) => query
+        .orWhere('id', '=', search)
+        .orWhere('mode', '=', search)
+      )
       .paginate(page, limit)
 
     return view.render('manager::views/news/posts/index', { posts: posts.toJSON() })
