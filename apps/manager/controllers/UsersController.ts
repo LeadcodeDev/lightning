@@ -8,6 +8,7 @@ import {UserStoreValidator, UserUpdateValidator} from "Apps/manager/validators/U
 import Role from "Domains/users/models/Role";
 import SendNewAccountPassword from "Apps/manager/mails/SendNewAccountPassword";
 import DefaultEmailSettings from "App/Mailers/DefaultEmailSettings";
+import {ResponsiveAttachment} from "adonis-responsive-attachment/build/src/Attachment";
 
 export default class UsersController {
   public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
@@ -87,7 +88,13 @@ export default class UsersController {
 
     const data = await request.validate(UserUpdateValidator)
 
-    await user.merge(data).save()
+    if (data.avatar) {
+      const avatar = await ResponsiveAttachment.fromFile(data.avatar)
+      await user.merge({ ...data, avatar }).save()
+    } else {
+      await user.merge({ ...data, avatar: user.avatar }).save()
+    }
+
     await User.syncRoles(user, request)
 
     return response.redirect().toRoute('manager.users.index')

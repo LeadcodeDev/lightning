@@ -25,6 +25,10 @@ export default class extends BaseSchema {
         { key: WebsiteSettingKey.logo, label: 'models.website.settings.logo.label', description: 'models.website.settings.logo.description', mode: 'image' },
         { key: WebsiteSettingKey.image, label: 'models.website.settings.image.label', description: 'models.website.settings.image.description', mode: 'image' },
         { key: WebsiteSettingKey.favicon, label: 'models.website.settings.favicon.label', description: 'models.website.settings.favicon.description', mode: 'image' },
+
+        { key: WebsiteSettingKey.facebook, label: 'models.website.settings.facebook.label', description: 'models.website.settings.facebook.description', mode: 'text' },
+        { key: WebsiteSettingKey.twitter, label: 'models.website.settings.twitter.label', description: 'models.website.settings.twitter.description', mode: 'text' },
+        { key: WebsiteSettingKey.linkedin, label: 'models.website.settings.linkedin.label', description: 'models.website.settings.linkedin.description', mode: 'text' },
       ])
     })
   }
