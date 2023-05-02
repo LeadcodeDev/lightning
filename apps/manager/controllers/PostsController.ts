@@ -37,7 +37,7 @@ export default class PostsController {
     return view.render('manager::views/news/posts/create', { permissions, tags })
   }
 
-  public async store ({ request, response, bouncer }: HttpContextContract): Promise<void> {
+  public async store ({ auth, request, response, bouncer }: HttpContextContract): Promise<void> {
     await bouncer
       .with('ManagerNewsPostPolicy')
       .authorize('create')
@@ -51,7 +51,7 @@ export default class PostsController {
       : post.picture
 
     await Promise.all([
-      post.merge({ ...data, picture }).save(),
+      post.merge({ ...data, picture, userId: auth.user?.id }).save(),
       PostTranslation.synchronize(post, data.translations),
       Post.syncTags(post, request)
     ])
