@@ -1,4 +1,17 @@
 <div class="mt-8 flow-root">
+  @if(search)
+  <div class="pb-5 flex justify-end">
+    <form action="{{ route(search.action) }}" method="GET">
+      <input
+        type="text"
+        name="search"
+        class="border border-gray-200 rounded-md px-3 py-1"
+      />
+      @!form.submit()
+    </form>
+  </div>
+  @end
+
   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
       @if(data.data.length)

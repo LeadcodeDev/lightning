@@ -11,7 +11,7 @@ import DefaultEmailSettings from "App/Mailers/DefaultEmailSettings";
 import {ResponsiveAttachment} from "adonis-responsive-attachment/build/src/Attachment";
 
 export default class UsersController {
-  public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
+  public async index ({ view, request, bouncer }: HttpContextContract) {
     await bouncer
       .with('ManagerUserPolicy')
       .authorize('viewList')
@@ -19,8 +19,15 @@ export default class UsersController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
+    const search = request.input('search')
     const users = await User.query()
       .preload('roles')
+      .if(search, (query) => query
+        .orWhere('id', '=', search)
+        .orWhere('firstname', 'like', `%${search}%`)
+        .orWhere('lastname', 'like', `%${search}%`)
+        .orWhere('email', 'like', `%${search}%`)
+      )
       .paginate(page, limit)
 
     return view.render('manager::views/users/index', { users: users.toJSON() })
