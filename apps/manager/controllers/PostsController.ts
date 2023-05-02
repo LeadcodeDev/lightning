@@ -4,6 +4,7 @@ import Permission from "Domains/users/models/Permission";
 import PostValidator from "Apps/manager/validators/PostValidator";
 import PostTranslation from "Domains/news/models/PostTranslation";
 import PostTag from "Domains/news/models/PostTag";
+import {ResponsiveAttachment} from "adonis-responsive-attachment/build/src/Attachment";
 
 export default class PostsController {
   public async index ({ view, request, bouncer }: HttpContextContract): Promise<string> {
@@ -45,7 +46,12 @@ export default class PostsController {
 
     const post: Post = await Post.create({})
 
+    const picture = data.picture
+      ? await ResponsiveAttachment.fromFile(data.picture)
+      : post.picture
+
     await Promise.all([
+      post.merge({ ...data, picture }).save(),
       PostTranslation.synchronize(post, data.translations),
       Post.syncTags(post, request)
     ])
@@ -79,8 +85,12 @@ export default class PostsController {
       .authorize('update', post)
 
     const data = await request.validate(PostValidator)
+    const picture = data.picture
+      ? await ResponsiveAttachment.fromFile(data.picture)
+      : post.picture
 
     await Promise.all([
+      post.merge({ ...data, picture }).save(),
       PostTranslation.synchronize(post, data.translations),
       Post.syncTags(post, request)
     ])
