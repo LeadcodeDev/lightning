@@ -34,6 +34,9 @@ export default class User extends BaseModel {
   @column()
   public isAdmin: boolean = false
 
+  @column()
+  public isLocked: boolean = false
+
   @responsiveAttachment({
     preComputeUrls: true,
     folder: 'avatars',

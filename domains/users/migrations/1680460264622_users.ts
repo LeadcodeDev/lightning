@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.string('remember_me_token').nullable()
       table.boolean('has_email_verified').notNullable().defaultTo(false)
       table.boolean('is_admin').notNullable().defaultTo(false)
+      table.boolean('is_locked').notNullable().defaultTo(false)
       table.json('avatar').nullable()
 
       /**

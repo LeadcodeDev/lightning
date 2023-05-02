@@ -77,7 +77,7 @@ export default class UsersController {
     return view.render('manager::views/users/edit', { user, roles })
   }
 
-  public async update ({ request, response, bouncer, params }: HttpContextContract) {
+  public async update ({ auth, request, response, bouncer, params }: HttpContextContract) {
     const user: User = await User.query()
       .where('id', params.id)
       .firstOrFail()
@@ -88,14 +88,18 @@ export default class UsersController {
 
     const data = await request.validate(UserUpdateValidator)
 
-    if (data.avatar) {
-      const avatar = await ResponsiveAttachment.fromFile(data.avatar)
-      await user.merge({ ...data, avatar }).save()
-    } else {
-      await user.merge({ ...data, avatar: user.avatar }).save()
-    }
+    const avatar = data.avatar
+      ? await ResponsiveAttachment.fromFile(data.avatar)
+      : user.avatar
 
-    await User.syncRoles(user, request)
+    const isAdmin = auth.user?.isAdmin
+      ? data.isAdmin
+      : user.isAdmin
+
+    await Promise.all([
+      user.merge({ ...data, avatar, isAdmin }).save(),
+      User.syncRoles(user, request)
+    ])
 
     return response.redirect().toRoute('manager.users.index')
   }

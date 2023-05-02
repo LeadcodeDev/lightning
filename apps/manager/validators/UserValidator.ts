@@ -46,6 +46,8 @@ export class UserUpdateValidator {
         gmailRemoveDots: false,
       }),
     ]),
+    isLocked: schema.boolean.optional(),
+    isAdmin: schema.boolean.optional(),
     avatar: schema.file.nullableAndOptional({
       size: '2mb',
       extnames: ['jpg', 'png', 'jpeg', 'webp'],

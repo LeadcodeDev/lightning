@@ -37,14 +37,29 @@
           <option
             value="{{ role.id }}"
             @if(user.roleIds.includes(role.id))
-            selected
+              selected
             @end
           >
             {{ role.label }}
           </option>
         @end
       @end
-      <div class="pb-10">
+
+      @!form.switch({
+        label: t('models.users.fields.is_locked'),
+        name: 'isLocked',
+        value: user.isLocked,
+      })
+
+      @if(auth.user.isAdmin)
+        @!form.switch({
+          label: t('models.users.fields.is_admin'),
+          name: 'isAdmin',
+          value: user.isAdmin,
+        })
+      @end
+
+      <div class="py-10">
         @!component('components/form/image_uploader', {
           value: user.avatar?.urls.breakpoints.small.url,
           exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
