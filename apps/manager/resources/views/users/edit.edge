@@ -9,12 +9,6 @@
   })
 
   @component('manager::components/container')
-    @component('manager::components/ui/heading-1')
-      {{ user.username }}
-    @end
-  @end
-
-  @component('manager::components/container')
     @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
     <div class="flex gap-5">
       @!form.input({
