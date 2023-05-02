@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
+import { responsiveAttachment, ResponsiveAttachmentContract } from "@ioc:Adonis/Addons/ResponsiveAttachment";
 
 export enum WebsiteSettingKey {
   siteName = 'site_name',
@@ -31,8 +31,12 @@ export default class WebsiteSetting extends BaseModel {
   @column()
   public mode: 'text' | 'image'
 
-  @attachment({ preComputeUrl: true })
-  public picture: AttachmentContract | null
+  @responsiveAttachment({
+    folder: 'website',
+    forceFormat: 'webp',
+    preComputeUrls: true
+  })
+  public picture: ResponsiveAttachmentContract | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
