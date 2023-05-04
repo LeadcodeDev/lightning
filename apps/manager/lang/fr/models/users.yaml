@@ -45,3 +45,8 @@ policies:
 fields:
   is_locked: Compte verrouillé
   is_admin: Compte administrateur
+
+notifications:
+  create: Le compte utilisateur a été créé avec succès.
+  update: Le compte utilisateur a été mis à jour avec succès.
+  delete: Le compte utilisateur a été supprimé avec succès.

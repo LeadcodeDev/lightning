@@ -41,7 +41,7 @@ export default class RolesController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.roles.notifications.create')
+      message: i18n.formatMessage('models.news.notifications.create')
     })
 
     return response.redirect().toRoute('manager.roles.index')
@@ -79,7 +79,7 @@ export default class RolesController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.roles.posts.notifications.update')
+      message: i18n.formatMessage('models.roles.notifications.update')
     })
 
     return response.redirect().toRoute('manager.roles.index')
@@ -96,7 +96,7 @@ export default class RolesController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.posts.notifications.delete')
+      message: i18n.formatMessage('models.news.notifications.delete')
     })
 
     response.redirect().back()

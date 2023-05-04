@@ -37,3 +37,6 @@ policies:
     edit:
       label: Modifier les paramètres du site
       description: Pouvoir modifier les paramètres du site
+
+notifications:
+  update: Les paramètres du site ont été mis à jour avec succès.

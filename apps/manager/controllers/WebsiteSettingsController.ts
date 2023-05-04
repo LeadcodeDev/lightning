@@ -22,7 +22,7 @@ export default class WebsiteSettingsController {
     return view.render('manager::views/settings/edit', { setting })
   }
 
-  public async update ({ request, response, params }: HttpContextContract) {
+  public async update ({ request, response, params, session, i18n }: HttpContextContract) {
     const data = await request.validate({
       schema: schema.create({
         value: schema.string.nullableAndOptional({ trim: true }, [
@@ -51,6 +51,11 @@ export default class WebsiteSettingsController {
     }
 
     await Redis.del(WebsiteSetting.key)
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.website.settings.notifications.update')
+    })
 
     return response.redirect().toRoute('manager.settings.index')
   }
