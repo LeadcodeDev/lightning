@@ -42,7 +42,18 @@
                   </option>
                 @end
               @end
-              <button type="submit">Submit</button>
+
+              <div class="py-10">
+                @!component('components/form/image_uploader', {
+                  exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
+                  name: 'picture',
+                  label: 'Thmbnail',
+                  classes: 'w-full aspect-video object-cover',
+                  value: post.picture?.urls.breakpoints.large.url
+                })
+              </div>
+
+              @!form.submit({ label: 'ui.buttons.save' })
             </div>
           </div>
         @end

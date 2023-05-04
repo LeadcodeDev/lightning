@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.integer('view_count').unsigned().notNullable().defaultTo(0)
       table.datetime('published_at').defaultTo(this.now())
       table.string('user_id').references('id').inTable('users')
+      table.json('picture')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -2,7 +2,19 @@
 
 @section('body')
   @form.container({ method: 'POST', action: route('user.store') })
-    @!form.input({ label: 'Username', type: 'text', name: 'username' })
+    <div class="flex gap-5">
+      @!form.input({
+        label: 'Prénom',
+        name: 'firstname',
+        required: true
+      })
+      @!form.input({
+        label: 'Nom',
+        name: 'lastname',
+        required: true
+      })
+    </div>
+
     @!form.input({ label: 'Email', type: 'email', name: 'email' })
     @!form.input({ label: 'Mot de passe', type: 'password', name: 'password' })
     @!form.input({ label: 'Confirmation du mot de passe', type: 'password', name: 'password_confirmation' })

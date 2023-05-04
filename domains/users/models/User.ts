@@ -7,6 +7,7 @@ import Token from "Domains/users/models/Token";
 import Role from "Domains/users/models/Role";
 import { RequestContract } from '@ioc:Adonis/Core/Request'
 import Permission, {PermissionKey} from "Domains/users/models/Permission";
+import {responsiveAttachment, ResponsiveAttachmentContract} from "@ioc:Adonis/Addons/ResponsiveAttachment";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -16,7 +17,10 @@ export default class User extends BaseModel {
   public email: string
 
   @column()
-  public username: string
+  public firstname: string
+
+  @column()
+  public lastname: string
 
   @column({ serializeAs: null })
   public password: string
@@ -30,6 +34,15 @@ export default class User extends BaseModel {
   @column()
   public isAdmin: boolean = false
 
+  @column()
+  public isLocked: boolean = false
+
+  @responsiveAttachment({
+    preComputeUrls: true,
+    folder: 'avatars',
+  })
+  public avatar: ResponsiveAttachmentContract
+
   @column.dateTime({
     autoCreate: true,
     consume: (value: string) => DateTime.fromJSDate(new Date(value)),
@@ -38,6 +51,11 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @computed()
+  public get username (): string {
+    return `${this.firstname} ${this.lastname}`
+  }
 
   @computed()
   public get roleIds (): string[] {

@@ -21,7 +21,8 @@
                 value: tag.label,
                 required: true
               })
-              <button type="submit">Submit</button>
+
+              @!form.submit({ label: 'ui.buttons.save' })
             </div>
           </div>
         @end

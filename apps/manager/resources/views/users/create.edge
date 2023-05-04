@@ -19,11 +19,18 @@
       </div>
 
       @form.container({ method: 'POST', action: route('manager.users.store') })
-        @!form.input({
-          label: 'Username',
-          name: 'username',
-          required: true
-        })
+        <div class="flex gap-5">
+          @!form.input({
+            label: 'Prénom',
+            name: 'firstname',
+            required: true
+          })
+          @!form.input({
+            label: 'Nom',
+            name: 'lastname',
+            required: true
+          })
+        </div>
 
         @!form.input({
           label: 'Email',
@@ -39,7 +46,7 @@
           @end
         @end
 
-      <button type="submit">Submit</button>
+      @!form.submit({ label: 'ui.buttons.save' })
       @end
     </div>
   @end

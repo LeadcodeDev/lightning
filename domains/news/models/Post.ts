@@ -1,10 +1,10 @@
 import {DateTime} from 'luxon'
 import {BaseModel, column, HasMany, hasMany, ManyToMany, manyToMany, computed, beforeCreate} from '@ioc:Adonis/Lucid/Orm'
-import {attachment, AttachmentContract} from "@ioc:Adonis/Addons/AttachmentLite";
 import PostTag from "Domains/news/models/PostTag";
 import {randomUUID} from "node:crypto";
 import PostTranslation from "Domains/news/models/PostTranslation";
 import {RequestContract} from "@ioc:Adonis/Core/Request";
+import {responsiveAttachment, ResponsiveAttachmentContract} from "@ioc:Adonis/Addons/ResponsiveAttachment";
 
 export enum PostMode {
   DRAFT = 'draft',
@@ -27,8 +27,11 @@ export default class Post extends BaseModel {
   @manyToMany(() => PostTag)
   public tags: ManyToMany<typeof PostTag>
 
-  @attachment({folder: 'news', preComputeUrl: true})
-  public picture: AttachmentContract
+  @responsiveAttachment({
+    folder: 'news/posts',
+    preComputeUrls: true
+  })
+  public picture: ResponsiveAttachmentContract
 
   @column.dateTime()
   public publishedAt: DateTime

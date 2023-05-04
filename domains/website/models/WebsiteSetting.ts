@@ -7,7 +7,11 @@ export enum WebsiteSettingKey {
   description = 'description',
   logo = 'logo',
   image = 'image',
-  favicon = 'favicon'
+  favicon = 'favicon',
+
+  facebook = 'facebook',
+  twitter = 'twitter',
+  linkedin = 'linkedin',
 }
 
 export default class WebsiteSetting extends BaseModel {

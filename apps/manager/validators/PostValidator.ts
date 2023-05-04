@@ -8,6 +8,10 @@ export default class PostValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    picture: schema.file.optional({
+      size: '2mb',
+      extnames: ['jpg', 'png', 'jpeg', 'webp']
+    }),
     translations: schema.object().members(
       I18n.supportedLocales().reduce((accumulator, current) => ({
         ...accumulator,

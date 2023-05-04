@@ -41,3 +41,7 @@ policies:
   manage_roles:
     label: Gérer les rôles
     description: Pouvoir gérer les rôles des utilisateurs
+
+fields:
+  is_locked: Compte verrouillé
+  is_admin: Compte administrateur

@@ -6,7 +6,8 @@ export default class UserValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    username: schema.string({ trim: true }),
+    firstname: schema.string({ trim: true }),
+    lastname: schema.string({ trim: true }),
     email: schema.string({ trim: true }, [rules.email()]),
     password: schema.string({ trim: true }, [rules.confirmed()]),
   })
