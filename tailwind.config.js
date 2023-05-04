@@ -1,4 +1,5 @@
 import { join } from 'node:path'
+import colors from 'tailwindcss/colors'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,9 +9,11 @@ module.exports = {
     join(process.cwd(), 'apps', 'web', 'resources', '**/*.{edge,js,ts}')
   ],
   theme: {
-    extend: {
-
-    },
+    colors: {
+      ...colors,
+      primary: colors.indigo,
+      secondary: colors.slate
+    }
   },
   plugins: [],
 }

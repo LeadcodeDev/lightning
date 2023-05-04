@@ -52,7 +52,7 @@
                     @can(policy + '.update', element)
                       <a
                         href="{{ route(resource + '.edit', [element.id]) }}"
-                        class="text-indigo-600 hover:text-indigo-900"
+                        class="text-primary-600 hover:text-primary-700"
                       >
                         {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
                       </a>
@@ -63,7 +63,7 @@
                     @can(policy + '.view', element)
                       <a
                         href="{{ route(resource + '.show', [element.id]) }}"
-                        class="text-indigo-600 hover:text-indigo-900"
+                        class="text-primary-600 hover:text-primary-700"
                       >
                         {{ t(actions.show) }}<span class="sr-only">, {{ element[0] }}</span>
                       </a>
@@ -75,7 +75,7 @@
                       @can(policy + '.delete', element)
                         <button
                           type="button"
-                          class="text-indigo-600 hover:text-indigo-900"
+                          class="text-primary-600 hover:text-primary-700"
                           onclick="(() => {
                             if (confirm('Êtes-vous sur de vouloir supprimer l\'élément ?') === true) {
                               this.form.submit()

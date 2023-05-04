@@ -17,7 +17,7 @@ html, body {
 }
 
 .ss-main .ss-values .ss-value {
-  @apply bg-blue-500 px-2 py-0.5 rounded-full;
+  @apply bg-primary-500 px-2 py-1 rounded-md;
 }
 
 .ss-content .ss-list {
