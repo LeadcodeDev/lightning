@@ -25,13 +25,18 @@ export default class PostTagsController {
     return view.render('manager::views/news/tags/create')
   }
 
-  public async store ({ request, response, bouncer }: HttpContextContract): Promise<void> {
+  public async store ({ request, response, bouncer, session, i18n }: HttpContextContract): Promise<void> {
     await bouncer
       .with('ManagerNewsTagPolicy')
       .authorize('create')
 
     const data = await request.validate(PostTagValidator)
     await PostTag.create(data)
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.news.tags.notifications.success.create')
+    })
 
     return response.redirect().toRoute('manager.news.tags.index')
   }
@@ -48,7 +53,7 @@ export default class PostTagsController {
     return view.render('manager::views/news/tags/edit', { tag })
   }
 
-  public async update ({ request, response, params, bouncer }: HttpContextContract) {
+  public async update ({ request, response, params, bouncer, session, i18n }: HttpContextContract) {
     const tag: PostTag = await PostTag.query()
       .where('id', params.id)
       .firstOrFail()
@@ -60,10 +65,15 @@ export default class PostTagsController {
     const data = await request.validate(PostTagValidator)
     await tag.merge(data).save()
 
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.tags.posts.notifications.success.create')
+    })
+
     return response.redirect().toRoute('manager.news.tags.index')
   }
 
-  public async destroy ({ response, params, bouncer }: HttpContextContract): Promise<void> {
+  public async destroy ({ response, params, bouncer, session, i18n }: HttpContextContract): Promise<void> {
     const tag: PostTag = await PostTag.findOrFail(params.id)
 
     await bouncer
@@ -71,6 +81,11 @@ export default class PostTagsController {
       .authorize('delete', tag)
 
     await tag.delete()
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.news.tags.notifications.success.create')
+    })
 
     response.redirect().back()
   }
