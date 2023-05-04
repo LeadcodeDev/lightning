@@ -1,0 +1,39 @@
+@set('notification', flashMessages.get('notification'))
+<div class="fixed bottom-0 right-0 m-5 max-w-md w-full">
+  <div
+    x-data="{ show: true }"
+    x-show="show"
+    x-transition.duration.300ms
+    class="relative flex justify-between w-full bg-white border border-gray-200 text-secondary-600 p-3 rounded-md shadow-md"
+  >
+    <div class="flex items-center gap-3">
+      <div>
+        @if(notification.type === 'info')
+          <span class="text-info-500">
+            @include('manager::partials/icons/info')
+          </span>
+        @elseif(notification.type === 'warning')
+          <span class="text-warning-500">
+            @include('manager::partials/icons/warn')
+          </span>
+        @elseif(notification.type === 'error')
+          <span class="text-error-500">
+            @include('manager::partials/icons/no-symbol')
+          </span>
+        @elseif(notification.type === 'success')
+          <span class="text-success-500">
+            @include('manager::partials/icons/check')
+          </span>
+        @end
+      </div>
+      <div>
+        {{ notification.message }}
+      </div>
+    </div>
+    <div class="cursor-pointer" @click="show = false">
+      <div class="transform rotate-45">
+        @include('manager::partials/icons/plus_small')
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,6 +21,10 @@
       <div class="w-full bg-gray-100">
         @!section('body')
       </div>
+
+      @if(flashMessages.has('notification'))
+        @!component('manager::components/notification')
+      @end
     </main>
 
     @!section('scripts')
