@@ -37,8 +37,12 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
+
+      info: colors.blue,
       primary: colors.indigo,
-      secondary: colors.slate
+      secondary: colors.gray,
+      success: colors.green,
+      danger: colors.red,
     }
   },
   plugins: [],
