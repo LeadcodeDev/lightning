@@ -7,11 +7,6 @@ table:
     delete: Supprimer
 
 notifications:
-  success:
-    create: Le Hashtag a été créé avec succès.
-    update: Le Hashtag a été mis à jour avec succès.
-    delete: Le Hashtag a été supprimé avec succès.
-  error:
-    create: Une erreur est survenue lors de la création du Hashtag.
-    update: Une erreur est survenue lors de la mise à jour du Hashtag.
-    delete: Une erreur est survenue lors de la suppression du Hashtag.
+  create: Le Hashtag a été créé avec succès.
+  update: Le Hashtag a été mis à jour avec succès.
+  delete: Le Hashtag a été supprimé avec succès.

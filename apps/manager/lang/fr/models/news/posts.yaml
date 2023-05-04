@@ -36,11 +36,6 @@ policies:
     description: Pouvoir supprimer des articles
 
 notifications:
-  success:
-    create: L'article a été créé avec succès.
-    update: L'article a été mis à jour avec succès.
-    delete: L'article a été supprimé avec succès.
-  error:
-    create: Une erreur est survenue lors de la création de l'article.
-    update: Une erreur est survenue lors de la mise à jour de l'article.
-    delete: Une erreur est survenue lors de la suppression de l'article.
+  create: L'article a été créé avec succès.
+  update: L'article a été mis à jour avec succès.
+  delete: L'article a été supprimé avec succès.

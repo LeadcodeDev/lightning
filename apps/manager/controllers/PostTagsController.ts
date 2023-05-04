@@ -35,7 +35,7 @@ export default class PostTagsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.tags.notifications.success.create')
+      message: i18n.formatMessage('models.news.tags.notifications.create')
     })
 
     return response.redirect().toRoute('manager.news.tags.index')
@@ -67,7 +67,7 @@ export default class PostTagsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.tags.posts.notifications.success.update')
+      message: i18n.formatMessage('models.tags.posts.notifications.update')
     })
 
     return response.redirect().toRoute('manager.news.tags.index')
@@ -84,7 +84,7 @@ export default class PostTagsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.tags.notifications.success.delete')
+      message: i18n.formatMessage('models.news.tags.notifications.delete')
     })
 
     response.redirect().back()

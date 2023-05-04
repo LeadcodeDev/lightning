@@ -58,7 +58,7 @@ export default class PostsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.posts.notifications.success.create')
+      message: i18n.formatMessage('models.news.posts.notifications.create')
     })
 
     return response.redirect().toRoute('manager.news.posts.index')
@@ -102,7 +102,7 @@ export default class PostsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.posts.notifications.success.update')
+      message: i18n.formatMessage('models.news.posts.notifications.update')
     })
 
     return response.redirect().toRoute('manager.news.posts.index')
@@ -117,7 +117,7 @@ export default class PostsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.news.posts.notifications.success.delete')
+      message: i18n.formatMessage('models.news.posts.notifications.delete')
     })
 
     await post.delete()
