@@ -31,3 +31,8 @@ policies:
   delete:
     label: Supprimer des rôles
     description: Pouvoir supprimer des rôles
+
+notifications:
+  create: Le rôle a été créé avec succès.
+  update: Le rôle a été mis à jour avec succès.
+  delete: Le rôle a été supprimé avec succès.
