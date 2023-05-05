@@ -60,8 +60,14 @@ export default class WebsiteSettingsController {
     return response.redirect().toRoute('manager.settings.index')
   }
 
-  public async clearCache ({ response }: HttpContextContract): Promise<void> {
+  public async clearCache ({ response, session, i18n }: HttpContextContract): Promise<void> {
     await Redis.del(WebsiteSetting.key)
+
+    session.flash('notification', {
+      type: 'info',
+      message: i18n.formatMessage('models.website.settings.notifications.invalidate')
+    })
+
     return response.redirect().back()
   }
 }

@@ -67,7 +67,7 @@ export default class PostTagsController {
 
     session.flash('notification', {
       type: 'success',
-      message: i18n.formatMessage('models.tags.posts.notifications.update')
+      message: i18n.formatMessage('models.news.tags.notifications.update')
     })
 
     return response.redirect().toRoute('manager.news.tags.index')

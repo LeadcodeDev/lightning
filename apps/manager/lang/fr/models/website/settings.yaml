@@ -40,3 +40,4 @@ policies:
 
 notifications:
   update: Les paramètres du site ont été mis à jour avec succès.
+  invalidate: Le cache du site a été invalidé.
