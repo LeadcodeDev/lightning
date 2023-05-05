@@ -1,6 +1,5 @@
 breadcrumb:
   label: Gestion des roles
-  tab: Roles
   actions:
     create: Créer un role
 

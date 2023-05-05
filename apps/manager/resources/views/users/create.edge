@@ -1,13 +1,20 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: false },
+      { label: t('ui.breadcrumb.new'), href: 'manager.users.index', current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des comptes utilisateurs',
+      title: t('models.users.breadcrumb.label'),
       tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
-        { label: 'Roles', href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
-        { label: 'Permissions', href: 'manager.users.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
+        { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
+        { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
+        { label: t('models.permissions.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
       ]
     })
 

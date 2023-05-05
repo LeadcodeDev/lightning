@@ -1,5 +1,7 @@
 breadcrumb:
-  tab: HashTags
+  label: Gestion des hashtags
+  actions:
+    create: Créer un Hashtag
 
 table:
   buttons:

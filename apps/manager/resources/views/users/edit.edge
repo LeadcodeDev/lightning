@@ -3,7 +3,7 @@
 @section('body')
   @!component('manager::components/breadcrumb', {
     locations: [
-      { label: 'Utilisateurs', href: 'manager.users.index', current: false },
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: false },
       { label: user.username, href: '', current: true }
     ]
   })

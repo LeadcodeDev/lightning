@@ -1,6 +1,5 @@
 breadcrumb:
   label: Gestion des comptes utilisateurs
-  tab: Utilisateurs enregistrés
   actions:
     create: Créer un compte
 
