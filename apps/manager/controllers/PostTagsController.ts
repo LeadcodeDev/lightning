@@ -11,7 +11,11 @@ export default class PostTagsController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
+    const search = request.input('search')
     const tags = await PostTag.query()
+      .if(search, (query) => query
+        .orWhere('label', 'like', `%${search}%`)
+      )
       .paginate(page, limit)
 
     return view.render('manager::views/news/tags/index', { tags: tags.toJSON() })

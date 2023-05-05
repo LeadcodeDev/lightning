@@ -38,7 +38,7 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
 
-      primary: colors.indigo,
+      primary: colors.sky,
       secondary: colors.gray,
       info: colors.blue,
       success: colors.green,

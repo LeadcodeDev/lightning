@@ -12,7 +12,12 @@ export default class RolesController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 2)
 
+    const search = request.input('search')
     const roles = await Role.query()
+      .if(search, (query) => query
+        .orWhere('label', 'like', `%${search}%`)
+        .orWhere('power', 'like', `%${search}%`)
+      )
       .paginate(page, limit)
 
     return view.render('manager::views/roles/index', { roles: roles.toJSON() })
