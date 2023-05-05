@@ -21,6 +21,7 @@ export default class PostsController {
         .orWhere('id', '=', search)
         .orWhere('mode', '=', search)
       )
+      .orderBy('created_at', 'desc')
       .paginate(page, limit)
 
     return view.render('manager::views/news/posts/index', { posts: posts.toJSON() })
