@@ -38,10 +38,11 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
 
-      info: colors.blue,
       primary: colors.indigo,
       secondary: colors.gray,
+      info: colors.blue,
       success: colors.green,
+      warning: colors.amber,
       danger: colors.red,
     }
   },
