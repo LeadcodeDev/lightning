@@ -43,3 +43,7 @@ h3 {
   font-size: 14px;
   line-height: 1.8rem;
 }
+
+.ql-editor iframe {
+  @apply w-full aspect-video rounded-xl;
+}

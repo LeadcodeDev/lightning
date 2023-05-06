@@ -52,7 +52,7 @@ up.on('up:fragment:inserted', function() {
         syntax: true,
         toolbar: [
           ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
-          ['image'],
+          ['image', 'video'],
           [{'header': [2, 3, false]}],
           [{'color': []}, {'background': []}],
           [{'list': 'ordered'}, {'list': 'bullet'}],
