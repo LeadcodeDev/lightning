@@ -51,12 +51,12 @@ up.on('up:fragment:inserted', function() {
       modules: {
         syntax: true,
         toolbar: [
-          ['bold', 'italic', 'underline', 'link'],
+          ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
           ['image'],
           [{'header': [2, 3, false]}],
           [{'color': []}, {'background': []}],
           [{'list': 'ordered'}, {'list': 'bullet'}],
-          ['code-block'],
+          ['blockquote', 'code-block'],
           ['clean']
         ]
       },
