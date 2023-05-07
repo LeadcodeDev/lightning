@@ -60,6 +60,16 @@
                 })
               </div>
 
+              @!form.radio({
+                label: 'Mode',
+                name: 'mode',
+                value: post.mode,
+                fields: {
+                  draft: 'Draft',
+                  publish: 'Publish',
+                },
+              })
+
               @!form.submit({ label: 'ui.buttons.save' })
             </div>
           </div>

@@ -12,6 +12,7 @@ export default class PostValidator {
       size: '2mb',
       extnames: ['jpg', 'png', 'jpeg', 'webp']
     }),
+    mode: schema.enum(Object.values(PostMode)),
     translations: schema.object().members(
       I18n.supportedLocales().reduce((accumulator, current) => ({
         ...accumulator,
