@@ -11,9 +11,6 @@
   @component('manager::components/container')
     @!component('manager::components/tab', {
       title: t('models.website.settings.breadcrumb.label'),
-      tabs: [
-        { label: t('models.website.settings.breadcrumb.label'), href: 'manager.settings.index', policy: 'ManagerSettingGlobalPolicy.viewList', current: true },
-      ]
     })
 
     <div class="py-10">

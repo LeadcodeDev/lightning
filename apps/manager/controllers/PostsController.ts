@@ -90,7 +90,6 @@ export default class PostsController {
       .with('ManagerNewsPostPolicy')
       .authorize('update', post)
 
-    console.log(request.all())
     const data = await request.validate(PostValidator)
     const picture = data.picture
       ? await ResponsiveAttachment.fromFile(data.picture)

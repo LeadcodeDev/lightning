@@ -9,6 +9,10 @@
   })
 
   @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.users.breadcrumb.label'),
+    })
+
     @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
     <div class="flex gap-5">
       @!form.input({

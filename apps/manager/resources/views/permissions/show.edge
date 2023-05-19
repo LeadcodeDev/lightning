@@ -11,11 +11,6 @@
   @component('manager::components/container')
     @!component('manager::components/tab', {
       title: 'Gestion des permissions',
-      tabs: [
-        { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
-        { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
-        { label: t('models.permissions.breadcrumb.label'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: true }
-      ]
     })
 
     <div class="py-10">

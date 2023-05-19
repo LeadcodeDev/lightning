@@ -10,12 +10,7 @@
 
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des comptes roles',
-      tabs: [
-        { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: false },
-        { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: true },
-        { label: t('models.permissions.breadcrumb.label'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
-      ]
+      title: t('models.roles.breadcrumb.label'),
     })
     <div class="py-10">
       @form.container({ method: 'PUT', action: route('manager.roles.update', [role.id]) + '?_method=PUT' })

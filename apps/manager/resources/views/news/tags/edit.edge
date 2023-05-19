@@ -10,11 +10,7 @@
 
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des actualités',
-      tabs: [
-        { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: false },
-        { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: true },
-      ]
+      title: t('models.news.tags.breadcrumb.label'),
     })
 
     <div class="py-10">

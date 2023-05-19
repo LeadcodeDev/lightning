@@ -5,7 +5,7 @@
 }
 
 .ql-container {
-  @apply !border-none;
+  @apply !border-none !mt-5;
 }
 
 .ql-container > .ql-editor.ql-blank::before {

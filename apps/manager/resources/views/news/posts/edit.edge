@@ -11,10 +11,6 @@
   @component('manager::components/container')
     @!component('manager::components/tab', {
       title: 'Gestion des actualités',
-      tabs: [
-        { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: true },
-        { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: false },
-      ]
     })
 
     <div class="py-10">
@@ -29,7 +25,7 @@
                 value: translation.content,
               })
             </div>
-            <div class="col-span-1">
+            <div class="col-span-1 lg:!h-[75vh] overflow-y-auto">
               @!form.input({
                 label: 'Titre',
                 name: `translations.${translation.language.code}.title`,
