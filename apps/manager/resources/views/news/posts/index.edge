@@ -1,0 +1,35 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des actualités',
+      actions: {
+        create: { label: t('models.news.posts.breadcrumb.actions.create'), href: 'manager.news.posts.create' }
+      },
+      tabs: [
+        { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: true },
+        { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: false },
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.news.posts',
+      data: posts,
+      policy: 'ManagerNewsPostPolicy',
+      actions: {
+        edit: 'models.news.posts.table.buttons.edit',
+        delete: 'models.news.posts.table.buttons.delete'
+      },
+      fields: [
+        { column: 'title', label: 'Intitulé de l\'actualité', translation: true },
+      ]
+    })
+  @end
+@end

@@ -1,0 +1,78 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: false },
+      { label: user.username, href: '', current: true }
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.users.breadcrumb.label'),
+    })
+
+    @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
+    <div class="flex gap-5">
+      @!form.input({
+        label: 'Prénom',
+        name: 'firstname',
+        required: true,
+        value: user.firstname
+      })
+      @!form.input({
+        label: 'Nom',
+        name: 'lastname',
+        required: true,
+        value: user.lastname
+      })
+    </div>
+
+      @!form.input({
+        label: 'Email',
+        name: 'email',
+        value: user.email,
+        required: true
+      })
+
+      @form.select({ label: 'Roles', id: 'roles', name: 'roles', multiple: true })
+        @each(role in roles)
+          <option
+            value="{{ role.id }}"
+            @if(user.roleIds.includes(role.id))
+              selected
+            @end
+          >
+            {{ role.label }}
+          </option>
+        @end
+      @end
+
+      @!form.switch({
+        label: t('models.users.fields.is_locked'),
+        name: 'isLocked',
+        value: user.isLocked,
+      })
+
+      @if(auth.user.isAdmin)
+        @!form.switch({
+          label: t('models.users.fields.is_admin'),
+          name: 'isAdmin',
+          value: user.isAdmin,
+        })
+      @end
+
+      <div class="py-10">
+        @!component('components/form/image_uploader', {
+          value: user.avatar?.urls.breakpoints.small.url,
+          exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
+          name: 'avatar',
+          label: 'Avatar'
+        })
+      </div>
+
+      @!form.submit({ label: 'ui.buttons.save' })
+    @end
+  @end
+@end

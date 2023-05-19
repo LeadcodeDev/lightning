@@ -1,0 +1,48 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', current: false },
+      { label: role.label, current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.roles.breadcrumb.label'),
+    })
+    <div class="py-10">
+      @form.container({ method: 'PUT', action: route('manager.roles.update', [role.id]) + '?_method=PUT' })
+        @!form.input({
+          label: 'Label',
+          name: 'label',
+          value: role.label,
+          required: true
+        })
+
+        @!form.input({
+          type: 'number',
+          label: 'Niveau d\'importance',
+          name: 'power',
+          value: role.power,
+          required: true
+        })
+
+        @form.select({ label: 'Permissions', id: 'permissions', name: 'permissions', multiple: true })
+          @each(permission in permissions)
+            <option
+              value="{{ permission.id }}"
+              @if(role.permissionIds.includes(permission.id))
+                selected
+              @end
+            >
+              {{ t(permission.label) }}
+            </option>
+          @end
+        @end
+        @!form.submit({ label: 'ui.buttons.save' })
+      @end
+    </div>
+  @end
+@end

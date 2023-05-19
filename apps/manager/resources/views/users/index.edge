@@ -1,0 +1,58 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.users.breadcrumb.label'),
+      actions: {
+        create: { label: t('models.users.breadcrumb.actions.create'), href: 'manager.users.create' }
+      },
+      tabs: [
+        { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
+        { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
+        { label: t('models.permissions.breadcrumb.label'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.users',
+      data: users,
+      policy: 'ManagerUserPolicy',
+      actions: {
+        edit: 'models.users.table.buttons.edit'
+      },
+      search: {
+        action: 'manager.users.index'
+      },
+      fields: [
+        { column: 'username', label: t('models.users.table.columns.label') },
+        { column: 'email', label: t('models.users.table.columns.email') },
+        {
+          column: 'roles',
+          label: t('models.users.table.columns.roles'),
+          reducer: (roles) => {
+            return roles
+              .map((role) => `<a href="${route('manager.roles.edit', [role.id])}" class="bg-primary-100 text-primary-500 px-3 py-0.5 rounded-full">${role.label}</a>`)
+              .join('')
+          },
+        },
+        {
+          column: 'updatedAt',
+          label: t('models.users.table.columns.updated_at'),
+          reducer: (date) => date.toFormat('dd/MM/yyyy')
+        },
+        {
+          column: 'createdAt',
+          label: t('models.users.table.columns.created_at'),
+          reducer: (date) => date.toFormat('dd/MM/yyyy')
+        },
+      ]
+    })
+  @end
+@end

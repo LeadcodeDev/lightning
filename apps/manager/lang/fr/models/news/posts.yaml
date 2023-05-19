@@ -1,0 +1,43 @@
+keywords:
+  state:
+    published: Publié
+    waiting_for_publish: En attente
+    draft: Brouillon
+  buttons:
+    edit: Modifier
+    new: Nouveau
+    delete: Supprimer
+
+breadcrumb:
+  label: Gestion des actualités
+  actions:
+    create: Créer une actualité
+
+table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
+  columns:
+    title: Titre
+    state: État
+    created_at: Créé le
+    updated_at: Modifié le
+
+policies:
+  view:
+    label: Voir les articles
+    description: Pouvoir voir les articles
+  create:
+    label: Créer des articles
+    description: Pouvoir créer des articles
+  edit:
+    label: Modifier des articles
+    description: Pouvoir modifier des articles
+  delete:
+    label: Supprimer des articles
+    description: Pouvoir supprimer des articles
+
+notifications:
+  create: L'article a été créé avec succès.
+  update: L'article a été mis à jour avec succès.
+  delete: L'article a été supprimé avec succès.

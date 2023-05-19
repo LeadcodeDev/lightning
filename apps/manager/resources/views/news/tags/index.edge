@@ -1,0 +1,38 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des tags',
+      actions: {
+        create: { label: t('models.news.tags.breadcrumb.actions.create'), href: 'manager.news.tags.create' }
+      },
+      tabs: [
+        { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: false },
+        { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: true },
+      ]
+    })
+
+    @!component('manager::components/table', {
+      resource: 'manager.news.tags',
+      data: tags,
+      policy: 'ManagerNewsTagPolicy',
+      actions: {
+        edit: 'models.news.tags.table.buttons.edit',
+        delete: 'models.news.tags.table.buttons.delete'
+      },
+      search: {
+        action: 'manager.news.tags.index'
+      },
+      fields: [
+        { column: 'label', label: 'Label' },
+      ]
+    })
+  @end
+@end

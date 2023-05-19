@@ -1,0 +1,14 @@
+breadcrumb:
+  label: Gestion des hashtags
+  actions:
+    create: Créer un Hashtag
+
+table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
+
+notifications:
+  create: Le Hashtag a été créé avec succès.
+  update: Le Hashtag a été mis à jour avec succès.
+  delete: Le Hashtag a été supprimé avec succès.

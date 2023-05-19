@@ -1,0 +1,18 @@
+users:
+  store:
+    username:
+      minLength: The username must have at least {{ options.minLength }} characters
+      maxLength: The username must not exceed {{ options.maxLength }} characters
+    email:
+      minLength: The username must have at least {{ options.minLength }} characters
+      maxLength: The username must not exceed {{ options.maxLength }} characters
+      email: The email field is not a valid email
+      unique: The given email already exists within our services
+
+roles:
+  store:
+    label:
+      minLength: The label must have at least {{ options.minLength }} characters
+      maxLength: The label must not exceed {{ options.maxLength }} characters
+    power:
+      range: The importance of the role must be between 0 and 100

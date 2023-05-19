@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+
+.ql-toolbar {
+  @apply rounded-md shadow-md;
+}
+
+.ql-container {
+  @apply !border-none !mt-5;
+}
+
+.ql-container > .ql-editor.ql-blank::before {
+  @apply text-lg font-normal;
+}
+
+h2 {
+  @apply !text-2xl !font-medium !leading-9 !pb-3 text-gray-900;
+  letter-spacing: -.003em;
+}
+
+h3 {
+  @apply !text-xl !font-medium !leading-9 !pb-3 text-gray-900;
+  letter-spacing: -.003em;
+}
+
+.ql-editor {
+  @apply !pb-10;
+}
+
+.ql-editor p {
+  @apply text-lg font-normal;
+  font-family: 'Adamina', 'poppins', sans-serif;
+  letter-spacing: -.003em;
+}
+
+.ql-editor .ql-syntax {
+  @apply !rounded-xl !p-5;
+  font-size: 14px !important;
+  color: #E3E4E7 !important;
+  background-color: #2B2D30 !important;
+}
+
+.ql-editor .ql-syntax * {
+  font-size: 14px;
+  line-height: 1.8rem;
+}
+
+.ql-editor iframe {
+  @apply w-full aspect-video rounded-xl;
+}

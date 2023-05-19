@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join } = require('node:path')
 const Encore = require('@symfony/webpack-encore')
 
 /*
@@ -45,7 +45,7 @@ Encore.setPublicPath('/assets')
 | entrypoints.
 |
 */
-Encore.addEntry('app', './resources/js/app.js')
+Encore.addEntry('app', './resources/js/app.ts')
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +57,10 @@ Encore.addEntry('app', './resources/js/app.js')
 | we must copy them manually.
 |
 */
-// Encore.copyFiles({
-//   from: './resources/images',
-//   to: 'images/[path][name].[hash:8].[ext]',
-// })
+Encore.copyFiles({
+  from: './resources/images',
+  to: 'images/[path][name].[hash:8].[ext]',
+})
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +119,16 @@ Encore.enableVersioning(Encore.isProduction())
 
 /*
 |--------------------------------------------------------------------------
+| Typescript support
+|--------------------------------------------------------------------------
+|
+| Enable typescript support
+|
+*/
+// Encore.enableTypeScriptLoader()
+
+/*
+|--------------------------------------------------------------------------
 | Configure dev server
 |--------------------------------------------------------------------------
 |
@@ -169,7 +179,7 @@ Encore.configureDevServerOptions((options) => {
 | PostCSS or CSS.
 |
 */
-// Encore.enablePostCssLoader()
+Encore.enablePostCssLoader()
 // Encore.configureCssLoader(() => {})
 
 /*

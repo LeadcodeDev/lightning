@@ -1,0 +1,25 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.permissions.breadcrumb.label'), href: 'manager.users.index', current: false },
+      { label: t(permission.label), href: 'manager.roles.index', current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des permissions',
+    })
+
+    <div class="py-10">
+      <h1 class="text-xl font-medium">
+        {{ t(permission.label) }}
+      </h1>
+      <p class="opacity-75">
+        {{ t(permission.description) }}
+      </p>
+    </div>
+  @end
+@end

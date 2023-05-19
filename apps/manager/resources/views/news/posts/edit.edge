@@ -1,0 +1,76 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', current: false },
+      { label: t(post.title), current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: 'Gestion des actualités',
+    })
+
+    <div class="py-10">
+      @form.container({ method: 'POST', action: route('manager.news.posts.update', [post.id]) + '?_method=PUT' })
+        @each(translation in post.translations)
+          <div class="grid grid-cols-3 gap-5">
+            <input type="hidden" name="{{ `translations.${translation.language.code}.id` }}" value="{{ translation.id }}">
+            <input type="hidden" name="{{ `translations.${translation.language.code}.locale` }}" value="{{ translation.locale }}">
+            <div class="col-span-2">
+              @!component('components/form/article-editor', {
+                lang: translation.language.code,
+                value: translation.content,
+              })
+            </div>
+            <div class="col-span-1 lg:!h-[75vh] overflow-y-auto">
+              @!form.input({
+                label: 'Titre',
+                name: `translations.${translation.language.code}.title`,
+                value: translation.title,
+                required: true
+              })
+
+              @form.select({ label: 'Hashtags', id: 'tags', name: 'tags', multiple: true })
+                @each(tag in tags)
+                  <option
+                    value="{{ tag.id }}"
+                    @if(post.tagIds.includes(tag.id))
+                      selected
+                    @end
+                  >
+                    {{ tag.label }}
+                  </option>
+                @end
+              @end
+
+              <div class="py-10">
+                @!component('components/form/image_uploader', {
+                  exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
+                  name: 'picture',
+                  label: 'Thmbnail',
+                  classes: 'w-full aspect-video object-cover',
+                  value: post.picture?.urls.breakpoints.large.url
+                })
+              </div>
+
+              @!form.radio({
+                label: 'Mode',
+                name: 'mode',
+                value: post.mode,
+                fields: {
+                  draft: 'Draft',
+                  publish: 'Publish',
+                },
+              })
+
+              @!form.submit({ label: 'ui.buttons.save' })
+            </div>
+          </div>
+        @end
+      @end
+    </div>
+  @end
+@end

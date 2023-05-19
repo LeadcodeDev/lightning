@@ -1,0 +1,51 @@
+breadcrumb:
+  label: Gestion des comptes utilisateurs
+  actions:
+    create: Créer un compte
+
+validator:
+  username:
+    minLength: Le nom d'utilisateur doit comporter au moins {{ options.minLength }} caractères
+    maxLength: Le nom d'utilisateur ne doit pas dépasser {{ options.maxLength }} caractères
+  email:
+    minLength: L'email doit comporter au moins {{ options.minLength }} caractères
+    maxLength: L'email ne doit pas dépasser {{ options.maxLength }} caractères
+    email: Le champ email n'est pas une email valide
+    unique: L'email donnée existe déjà dans nos services
+
+table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
+  columns:
+    label: Identité
+    email: Email
+    roles: Rôles
+    created_at: Créé le
+    updated_at: Modifié le
+
+policies:
+  view:
+    label: Voir les utilisateurs
+    description: Pouvoir voir les utilisateurs
+  create:
+    label: Créer des utilisateurs
+    description: Pouvoir créer des utilisateurs
+  edit:
+    label: Modifier des utilisateurs
+    description: Pouvoir modifier des utilisateurs
+  delete:
+    label: Supprimer des utilisateurs
+    description: Pouvoir supprimer des utilisateurs
+  manage_roles:
+    label: Gérer les rôles
+    description: Pouvoir gérer les rôles des utilisateurs
+
+fields:
+  is_locked: Compte verrouillé
+  is_admin: Compte administrateur
+
+notifications:
+  create: Le compte utilisateur a été créé avec succès.
+  update: Le compte utilisateur a été mis à jour avec succès.
+  delete: Le compte utilisateur a été supprimé avec succès.

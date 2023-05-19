@@ -1,0 +1,21 @@
+<div class="flex flex-col max-w-md pb-5">
+  <label for="{{ name }}">{{ label }}</label>
+
+  <select
+    id="{{ name }}"
+    name="{{ name }}"
+    class="border border-gray-200 px-3 py-1"
+
+    @if(multiple)
+      multiple
+    @end
+  >
+    {{{ await $slots.main() }}}
+  </select>
+
+  @if(flashMessages.has(`errors.${name}`))
+    <div class="bg-red-200 rounded-md mt-2 p-3 max-w-xl">
+      <p class="text-red-600 text-sm">{{ flashMessages.get(`errors.${name}`) }}</p>
+    </div>
+  @end
+</div>

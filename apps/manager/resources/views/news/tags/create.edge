@@ -1,0 +1,33 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', current: false },
+      { label: t('ui.breadcrumb.new'), current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.news.tags.breadcrumb.label'),
+    })
+
+    <div class="py-10">
+      @form.container({ method: 'POST', action: route('manager.news.tags.store') })
+        @each(lang in getSupportedLocales())
+          <div class="grid grid-cols-3 gap-5">
+            <div class="col-span-1">
+              @!form.input({
+                label: 'Label',
+                name: 'label',
+                required: true
+              })
+              @!form.submit({ label: 'ui.buttons.save' })
+            </div>
+          </div>
+        @end
+      @end
+    </div>
+  @end
+@end

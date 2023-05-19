@@ -1,0 +1,14 @@
+breadcrumb:
+  label: Gestion des permissions
+
+table:
+  buttons:
+    show: Voir
+    edit: Modifier
+  columns:
+    label: Nom de la permission
+
+policies:
+  view:
+    label: Voir les permissions
+    description: Pouvoir voir les permissions

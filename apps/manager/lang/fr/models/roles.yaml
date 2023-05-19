@@ -1,0 +1,37 @@
+breadcrumb:
+  label: Gestion des roles
+  actions:
+    create: Créer un role
+
+validator:
+  label:
+    minLength: Le label doit comporter au moins {{ options.minLength }} caractères
+    maxLength: Le label ne doit pas dépasser {{ options.maxLength }} caractères
+  power:
+    range: Le niveau d'importance du rôle doit-être comprise entre 0 et 100
+
+table:
+  buttons:
+    edit: Modifier
+    delete: Supprimer
+  columns:
+    label: Intitulé du rôle
+
+policies:
+  view:
+    label: Voir les rôles
+    description: Pouvoir voir les rôles
+  create:
+    label: Créer des rôles
+    description: Pouvoir créer des rôles
+  edit:
+    label: Modifier des rôles
+    description: Pouvoir modifier des rôles
+  delete:
+    label: Supprimer des rôles
+    description: Pouvoir supprimer des rôles
+
+notifications:
+  create: Le rôle a été créé avec succès.
+  update: Le rôle a été mis à jour avec succès.
+  delete: Le rôle a été supprimé avec succès.

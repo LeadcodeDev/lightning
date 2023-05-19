@@ -1,0 +1,135 @@
+<div class="mt-8 flow-root">
+  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+      @if(data.data.length)
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+          <tr>
+            @each(field in fields)
+              <th scope="col" class="py-3.5 pl-3 pr-3 text-left text-sm text-gray-900">
+                {{ field.label }}
+              </th>
+            @end
+
+            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+              @if(search)
+              <div class="pb-5 flex justify-end">
+                <form action="{{ route(search.action) }}" method="GET">
+                  <input
+                    type="text"
+                    name="search"
+                    class="border border-gray-200 rounded-md px-3 py-1"
+                  />
+                  @!form.submit({ label: 'ui.buttons.search' })
+                </form>
+              </div>
+              @end
+            </th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            @each(element in data.data)
+              <tr>
+                @each(field in fields)
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    @if(field.reducer)
+                      <div class="flex gap-x-3">
+                        {{{ field.reducer(element[field.column]) }}}
+                      </div>
+                    @else
+                      @if(field.translation)
+                        {{ t(element[field.column]) }}
+                      @else
+                        {{ element[field.column] }}
+                      @end
+                    @end
+                  </td>
+                @end
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                  @if(actions?.edit)
+                    @can(policy + '.update', element)
+                      <a
+                        href="{{ route(resource + '.edit', [element.id]) }}"
+                        class="text-primary-600 hover:text-primary-700"
+                      >
+                        {{ t(actions.edit) }}<span class="sr-only">, {{ element[0] }}</span>
+                      </a>
+                    @end
+                  @end
+
+                  @if(actions?.show)
+                    @can(policy + '.view', element)
+                      <a
+                        href="{{ route(resource + '.show', [element.id]) }}"
+                        class="text-primary-600 hover:text-primary-700"
+                      >
+                        {{ t(actions.show) }}<span class="sr-only">, {{ element[0] }}</span>
+                      </a>
+                    @end
+                  @end
+
+                  @if(actions?.delete)
+                    @form.container({ method: 'POST', action: route(resource + '.destroy', [element.id]) + '?_method=delete' })
+                      @can(policy + '.delete', element)
+                        <button
+                          type="button"
+                          class="text-primary-600 hover:text-primary-700"
+                          onclick="(() => {
+                            if (confirm('Êtes-vous sur de vouloir supprimer l\'élément ?') === true) {
+                              this.form.submit()
+                            }
+                          })()"
+                        >
+                          {{ t(actions.delete) }}<span class="sr-only">, {{ element[0] }}</span>
+                        </button>
+                      @end
+                    @end
+                  @end
+                </td>
+              </tr>
+            @end
+          </tbody>
+        </table>
+
+        <nav class="flex items-center justify-between border-t border-gray-200 bg-white py-3" aria-label="Pagination">
+          <div class="hidden sm:block">
+            <p class="text-sm text-gray-700">
+              {{ t(
+                'ui.table.breadcrumb_message', {
+                  current: data.meta.current_page,
+                  length: data.meta.last_page
+                })
+              }}
+            </p>
+          </div>
+
+          <div class="flex flex-1 justify-between sm:justify-end gap-x-2">
+            @if(data.meta.previous_page_url)
+              <a href="{{ route(resource + '.index') + data.meta.previous_page_url }}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
+                {{ t('ui.table.keywords.previous') }}
+              </a>
+            @else
+              <button disabled class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 focus-visible:outline-offset-0 cursor-not-allowed">
+                {{ t('ui.table.keywords.previous') }}
+              </button>
+            @end
+
+            @if(data.meta.next_page_url)
+              <a href="{{ route(resource + '.index') + data.meta.next_page_url }}" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0">
+                {{ t('ui.table.keywords.next') }}
+              </a>
+            @else
+              <button disabled class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm text-gray-900 ring-1 ring-inset ring-gray-300 focus-visible:outline-offset-0 cursor-not-allowed">
+                {{ t('ui.table.keywords.next') }}
+              </button>
+            @end
+            </div>
+        </nav>
+      @else
+        <div>
+          {{ t('ui.table.keywords.no_data') }}
+        </div>
+      @end
+    </div>
+  </div>
+</div>

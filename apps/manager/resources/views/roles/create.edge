@@ -1,0 +1,47 @@
+@layout('manager::layouts/default')
+
+@section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', current: false },
+      { label: t('ui.breadcrumb.new'), href: 'manager.roles.index', current: true },
+    ]
+  })
+
+  @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.roles.breadcrumb.label'),
+    })
+
+    <div class="py-10">
+      <div class="pb-5">
+        @component('manager::components/ui/heading-1')
+          Nouveau rôle
+        @end
+      </div>
+
+      @form.container({ method: 'POST', action: route('manager.roles.store') })
+        @!form.input({
+          label: 'Label',
+          name: 'label',
+          required: true
+        })
+
+        @!form.input({
+          type: 'number',
+          label: 'Niveau d\'importance',
+          name: 'power',
+          required: true
+        })
+
+        @form.select({ label: 'Permissions', id: 'permissions', name: 'permissions', multiple: true })
+          @each(permission in permissions)
+            <option value="{{ permission.id }}">{{ t(permission.label) }}</option>
+          @end
+        @end
+
+      @!form.submit({ label: 'ui.buttons.save' })
+      @end
+    </div>
+  @end
+@end

@@ -1,0 +1,12 @@
+<div>
+  <input type="hidden" name="{{ `translations.${lang}.content` }}" id="content">
+  <div id="editor" class="article-container lg:!h-[70vh]">
+    {{{ flashMessages.get(name, '') || value || '' }}}
+  </div>
+</div>
+
+@if(flashMessages.has(`errors.${name}`))
+  <div class="bg-red-200 rounded-md mt-2 p-3 max-w-xl">
+    <p class="text-red-600 text-sm">{{ flashMessages.get(`errors.${name}`) }}</p>
+  </div>
+@end
