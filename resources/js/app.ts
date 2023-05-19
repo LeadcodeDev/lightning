@@ -1,5 +1,7 @@
 import '../css/app.css'
 import '../css/tailwind.css'
+import '../css/highlight.css'
+import '../css/ql-editor.css'
 
 import './unpoly.js'
 

@@ -3,12 +3,16 @@
 @section('body')
   @!component('manager::components/breadcrumb', {
     locations: [
-      { label: 'Utilisateurs', href: 'manager.users.index', current: false },
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: false },
       { label: user.username, href: '', current: true }
     ]
   })
 
   @component('manager::components/container')
+    @!component('manager::components/tab', {
+      title: t('models.users.breadcrumb.label'),
+    })
+
     @form.container({ method: 'POST', action: route('manager.users.update', [user.id]) + '?_method=PUT' })
     <div class="flex gap-5">
       @!form.input({

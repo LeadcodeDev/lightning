@@ -1,12 +1,16 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.website.settings.breadcrumb.label'), href: 'manager.settings.index', current: false },
+      { label: t(setting.label), current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des configurations du site',
-      tabs: [
-        { label: t('models.website.settings.breadcrumb.global.tab'), href: 'manager.settings.index', policy: 'ManagerSettingGlobalPolicy.viewList', current: true },
-      ]
+      title: t('models.website.settings.breadcrumb.label'),
     })
 
     <div class="py-10">
@@ -20,13 +24,13 @@
       <div class="pt-5">
         @form.container({ method: 'PUT', action: route('manager.settings.update', [setting.id]) + '?_method=PUT' })
           @if(setting.mode == 'image')
-          <label for="picture">
-            @if(setting.picture)
-              <img src="{{ setting.picture.urls.breakpoints.thumbnail.url }}" />
-            @end
-            <input type="file" id="picture" name="picture" />
-          </label>
-
+            @!component('components/form/image_uploader', {
+              value: setting.picture?.urls.breakpoints.small.url,
+              exts: ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'],
+              classes: 'h-20',
+              name: 'picture',
+              label: 'Image'
+            })
           @else
             @!form.input({
               label: 'Valeur',
@@ -35,7 +39,7 @@
             })
           @end
 
-        @!form.submit({ label: 'ui.buttons.save' })
+          @!form.submit({ label: 'ui.buttons.save' })
         @end
       </div>
     </div>

@@ -1,23 +1,19 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: false },
+      { label: t('ui.breadcrumb.new'), href: 'manager.users.index', current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des comptes utilisateurs',
-      tabs: [
-        { label: 'Utilisateurs enregistrés', href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
-        { label: 'Roles', href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
-        { label: 'Permissions', href: 'manager.users.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
-      ]
+      title: t('models.users.breadcrumb.label'),
     })
 
     <div class="py-10">
-      <div class="pb-5">
-        @component('manager::components/ui/heading-1')
-          Nouvel utilisateur
-        @end
-      </div>
-
       @form.container({ method: 'POST', action: route('manager.users.store') })
         <div class="flex gap-5">
           @!form.input({

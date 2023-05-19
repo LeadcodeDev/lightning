@@ -13,7 +13,7 @@
       @can('ManagerPolicy.' + link.policy)
         <a
           href="{{ route(link.href) }}"
-          class="rounded-md w-full aspect-square flex items-center justify-center {{ request.url().startsWith(link.group) ? 'bg-gray-100' : '' }}"
+          class="rounded-md w-full aspect-square flex items-center justify-center {{ request.url().startsWith(link.group) ? 'bg-primary-100 text-primary-600' : '' }}"
         >
           @include(link.icon)
         </a>
@@ -28,7 +28,7 @@
   </div>
   <div class="flex flex-col items-center">
     @each (link in links)
-      <div class="hover:bg-gray-100 rounded-md w-full flex gap-2 items-center">
+      <div class="hover:bg-primary-100 rounded-md w-full flex gap-2 items-center">
         <div class="w-12 aspect-square flex items-center justify-center">
           @include(link.icon)
         </div>

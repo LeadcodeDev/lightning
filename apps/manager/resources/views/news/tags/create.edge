@@ -1,22 +1,19 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.tags.breadcrumb.label'), href: 'manager.news.tags.index', current: false },
+      { label: t('ui.breadcrumb.new'), current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
-      title: 'Gestion des tags',
-      tabs: [
-        { label: t('models.news.posts.breadcrumb.tab'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: false },
-        { label: t('models.news.tags.breadcrumb.tab'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: true },
-      ]
+      title: t('models.news.tags.breadcrumb.label'),
     })
 
     <div class="py-10">
-      <div class="pb-5">
-        @component('manager::components/ui/heading-1')
-          Nouveau tag
-        @end
-      </div>
-
       @form.container({ method: 'POST', action: route('manager.news.tags.store') })
         @each(lang in getSupportedLocales())
           <div class="grid grid-cols-3 gap-5">

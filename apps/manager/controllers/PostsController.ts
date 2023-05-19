@@ -21,6 +21,7 @@ export default class PostsController {
         .orWhere('id', '=', search)
         .orWhere('mode', '=', search)
       )
+      .orderBy('created_at', 'desc')
       .paginate(page, limit)
 
     return view.render('manager::views/news/posts/index', { posts: posts.toJSON() })
@@ -37,7 +38,7 @@ export default class PostsController {
     return view.render('manager::views/news/posts/create', { permissions, tags })
   }
 
-  public async store ({ auth, request, response, bouncer }: HttpContextContract): Promise<void> {
+  public async store ({ auth, request, response, session, i18n, bouncer }: HttpContextContract): Promise<void> {
     await bouncer
       .with('ManagerNewsPostPolicy')
       .authorize('create')
@@ -55,6 +56,11 @@ export default class PostsController {
       PostTranslation.synchronize(post, data.translations),
       Post.syncTags(post, request)
     ])
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.news.posts.notifications.create')
+    })
 
     return response.redirect().toRoute('manager.news.posts.index')
   }
@@ -75,7 +81,7 @@ export default class PostsController {
     return view.render('manager::views/news/posts/edit', { post, tags })
   }
 
-  public async update ({ request, response, params, bouncer }: HttpContextContract) {
+  public async update ({ request, response, params, i18n, session, bouncer }: HttpContextContract) {
     const post: Post = await Post.query()
       .where('id', params.id)
       .firstOrFail()
@@ -95,15 +101,25 @@ export default class PostsController {
       Post.syncTags(post, request)
     ])
 
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.news.posts.notifications.update')
+    })
+
     return response.redirect().toRoute('manager.news.posts.index')
   }
 
-  public async destroy ({ response, params, bouncer }: HttpContextContract): Promise<void> {
+  public async destroy ({ response, params, session, i18n, bouncer }: HttpContextContract): Promise<void> {
     const post: Post = await Post.findOrFail(params.id)
 
     await bouncer
       .with('ManagerNewsPostPolicy')
       .authorize('delete', post)
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.news.posts.notifications.delete')
+    })
 
     await post.delete()
 

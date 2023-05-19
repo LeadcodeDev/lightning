@@ -46,7 +46,7 @@ export default class UsersController {
     return view.render('manager::views/users/create', { roles })
   }
 
-  public async store ({ request, bouncer, response }: HttpContextContract): Promise<void> {
+  public async store ({ request, bouncer, response, session, i18n }: HttpContextContract): Promise<void> {
     await bouncer
       .with('ManagerUserPolicy')
       .authorize('create')
@@ -61,6 +61,11 @@ export default class UsersController {
     const emailSettings = await new DefaultEmailSettings().get()
     await new SendNewAccountPassword(emailSettings, user, password, Env.get('DOMAIN') + activeEmailLink)
       .sendLater()
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.users.notifications.create')
+    })
 
     return response.redirect().toRoute('manager.users.index')
   }
@@ -84,7 +89,7 @@ export default class UsersController {
     return view.render('manager::views/users/edit', { user, roles })
   }
 
-  public async update ({ auth, request, response, bouncer, params }: HttpContextContract) {
+  public async update ({ auth, request, response, bouncer, params, session, i18n }: HttpContextContract) {
     const user: User = await User.query()
       .where('id', params.id)
       .firstOrFail()
@@ -107,6 +112,11 @@ export default class UsersController {
       user.merge({ ...data, avatar, isAdmin }).save(),
       User.syncRoles(user, request)
     ])
+
+    session.flash('notification', {
+      type: 'success',
+      message: i18n.formatMessage('models.users.notifications.update')
+    })
 
     return response.redirect().toRoute('manager.users.index')
   }

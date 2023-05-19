@@ -2,6 +2,8 @@ import 'unpoly'
 import 'unpoly/unpoly.css'
 import SlimSelect from "slim-select";
 import Quill from 'quill'
+import hljs from 'highlight.js'
+import 'quill/dist/quill.snow.css'
 
 up.fragment.config.mainTargets.push('[layout-main]')
 
@@ -34,19 +36,27 @@ up.on('up:fragment:inserted', () => {
   })
 })
 
+up.on('up:fragment:updated', () => {
+  hljs.highlightAll();
+})
+
 up.on('up:fragment:inserted', function() {
   const editorContainer = document.getElementById('editor');
   if (editorContainer) {
+    hljs.configure({
+      languages: ['javascript', 'ruby', 'python']
+    });
+
     const editor = new Quill('#editor', {
       modules: {
         syntax: true,
         toolbar: [
-          ['bold', 'italic', 'underline', 'link'],
-          ['image'],
+          ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+          ['image', 'video'],
           [{'header': [2, 3, false]}],
           [{'color': []}, {'background': []}],
           [{'list': 'ordered'}, {'list': 'bullet'}],
-          ['code-block'],
+          ['blockquote', 'code-block'],
           ['clean']
         ]
       },

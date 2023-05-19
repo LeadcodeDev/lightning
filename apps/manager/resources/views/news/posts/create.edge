@@ -1,25 +1,19 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.news.posts.breadcrumb.label'), href: 'manager.news.posts.index', current: false },
+      { label: t('ui.breadcrumb.new'), current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
       title: 'Gestion des actualités',
-      actions: {
-        create: { label: 'Créer une actualité', href: 'manager.news.posts.create' }
-      },
-      tabs: [
-        { label: t('models.news.posts.breadcrumb.tab'), href: 'manager.news.posts.index', policy: 'ManagerNewsPostPolicy.viewList', current: true },
-        { label: t('models.news.tags.breadcrumb.tab'), href: 'manager.news.tags.index', policy: 'ManagerNewsTagPolicy.viewList', current: false },
-      ]
     })
 
     <div class="py-10">
-      <div class="pb-5">
-        @component('manager::components/ui/heading-1')
-          Nouvelle actualité
-        @end
-      </div>
-
       @form.container({ method: 'POST', action: route('manager.news.posts.store') })
         @each(lang in getSupportedLocales())
           <div class="grid grid-cols-3 gap-5">

@@ -10,7 +10,11 @@ export default class PermissionsController {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
 
+    const search = request.input('search')
     const permissions= await Permission.query()
+      .if(search, (query) => query
+        .orWhere('label', 'like', `%${search}%`)
+      )
       .paginate(page, limit)
 
     return view.render('manager::views/permissions/index', { permissions: permissions.toJSON() })

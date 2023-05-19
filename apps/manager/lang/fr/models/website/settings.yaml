@@ -26,8 +26,7 @@ table:
     value: Valeur du paramètre
 
 breadcrumb:
-  global:
-    tab: Paramètres du site
+  label: Paramètres du site
 
 policies:
   global:
@@ -37,3 +36,7 @@ policies:
     edit:
       label: Modifier les paramètres du site
       description: Pouvoir modifier les paramètres du site
+
+notifications:
+  update: Les paramètres du site ont été mis à jour avec succès.
+  invalidate: Le cache du site a été invalidé.

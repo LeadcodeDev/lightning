@@ -1,6 +1,12 @@
 @layout('manager::layouts/default')
 
 @section('body')
+  @!component('manager::components/breadcrumb', {
+    locations: [
+      { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', current: true },
+    ]
+  })
+
   @component('manager::components/container')
     @!component('manager::components/tab', {
       title: t('models.users.breadcrumb.label'),
@@ -8,9 +14,9 @@
         create: { label: t('models.users.breadcrumb.actions.create'), href: 'manager.users.create' }
       },
       tabs: [
-        { label: t('models.users.breadcrumb.tab'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
-        { label: t('models.roles.breadcrumb.tab'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
-        { label: t('models.permissions.breadcrumb.tab'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
+        { label: t('models.users.breadcrumb.label'), href: 'manager.users.index', policy: 'ManagerUserPolicy.viewList', current: true },
+        { label: t('models.roles.breadcrumb.label'), href: 'manager.roles.index', policy: 'ManagerRolePolicy.viewList', current: false },
+        { label: t('models.permissions.breadcrumb.label'), href: 'manager.permissions.index', policy: 'ManagerPermissionPolicy.viewList', current: false }
       ]
     })
 
@@ -32,7 +38,7 @@
           label: t('models.users.table.columns.roles'),
           reducer: (roles) => {
             return roles
-              .map((role) => `<a href="${route('manager.roles.edit', [role.id])}" class="bg-blue-100 text-blue-500 px-3 py-0.5 rounded-full">${role.label}</a>`)
+              .map((role) => `<a href="${route('manager.roles.edit', [role.id])}" class="bg-primary-100 text-primary-500 px-3 py-0.5 rounded-full">${role.label}</a>`)
               .join('')
           },
         },
